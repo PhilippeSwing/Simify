@@ -1,12 +1,110 @@
+<!-- Available Values:
+1. Title
+2. Type: movies
+3. Teaser Description
+4. Wiki URL
+5. YouTube URL
+
+MVP1 - Movies
+- Layout
+Page headings
+Search field with placeholder content
+
+- User input: 
+text input form
+
+- Output:
+Title, Teaser Description, Wiki link, embedded YouTube clip
+Multiple results on one page
+
+- Functional Features:
+Results are replace with every new search
+
+MVP2 - Scroll
+If the PI returns an empty array, display or alert an error message that tells them to check their spelling or enter a valid movie title.
+Arrow at bottom of page to reveal more results
+
+MVP3 - Add search options for music, shows and books -->
+
+<!-- PSEUDO CODE -->
+<!-- ======================== -->
+
+<!-- ======MVP1 -->
+<!-- HTML: Create form with text input -->
+<!-- Scripts: 
+- Create document ready with my init() function
+- Create object for my app
+- Create a method property to get the results I want
+- Create a method property to display the results on the page
+- Make it so that old results are replaced with the results of a new search
+ -->
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>API Practice</title>
 	<link rel="stylesheet" href="public/styles/style.css">
 </head>
 <body>
-	<h1>Hello World!</h1>
+<!-- HEADER -->
+	<header class="header wrapper__prim">
+		<h1 class="header__prim">Digital Siblings</h1>
+<!-- ==Media Input Form== -->
+		<form action="" class="media__form">
+			<div class="media__form__search">
+				<!-- <label for="media__search">Enter your movie title</label> -->
+				<input type="text" id="media__search">
+				<input type="submit" value="search" class="media__submit">
+			</div>
+
+			<div class="media__form__type">
+				<input type="checkbox" id="movies" name="type" value="movies">
+				<label for="movies">Movies</label>
+
+				<input type="checkbox" id="music" name="type" value="music">
+				<label for="music">Music</label>
+
+				<input type="checkbox" id="shows" name="type" value="shows">
+				<label for="shows">Shows</label>
+
+				<input type="checkbox" id="books" name="type" value="books">
+				<label for="books">Books</label>
+
+				<input type="checkbox" id="authors" name="type" value="authors">
+				<label for="authors">Authors</label>
+
+				<input type="checkbox" id="games" name="type" value="games">
+				<label for="games">Games</label>
+			</div>
+		</form>
+<!-- ==Media Input Form Ends== -->
+	</header>
+<!-- HEADER ENDS -->
+<!-- ======================== -->
+<!-- MAIN -->
+	<main class="wrapper__prim">
+		<div class="main__container wrapper__sec">
+			<div class="media__container">
+			<!-- <a href=""></a> -->
+
+			<!-- <ul class="similar-list">
+				
+			</ul> -->
+
+			<!-- <iframe class="youtube-clip" width="" height="" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> -->
+			</div>
+		</div>
+	</main>
+<!-- MAIN ENDS -->
+<!-- ======================== -->
+<!-- FOOTER -->
+	<footer>
+		<!-- <p class="footer_text">©Philbo Baggins</p> -->
+	</footer>
+<!-- FOOTER ENDS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="public/scripts/app.js"></script>
 </body>
 </html>

@@ -1,5 +1,33 @@
-h1 {
-  color: darkcyan; }
+html {
+  font-size: 62.5%; }
 
-body {
-  margin: 0; }
+h1 {
+  font-size: 3rem; }
+
+.wrapper__prim {
+  max-width: 1440px; }
+
+.wrapper__sec {
+  max-width: 1000px; }
+
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center; }
+
+.media__form {
+  display: flex;
+  flex-direction: column; }
+
+.main__container {
+  margin: 0 auto; }
+
+.media__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%; }
+
+.footer_text {
+  text-align: center; }

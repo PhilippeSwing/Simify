@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Promises</title>
+</head>
+<body>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script>
+		// I am saving a promise with the resolution of my Ajax request in a variable
+		// const myGithub = $.ajax({
+		// 	url: 'https://api.github.com/users/PhilippeSwing',
+		// 	dataType: 'JSON'
+		// });
+
+		// const yourGithub = $.ajax({
+		// 	url: 'https://api.github.com/users/wesbos',
+		// 	dataType: 'JSON'
+		// });
+		// console.log(myGithub);
+		// When the server comes back with my data, I am going to do something
+		// Here I'm passing two promisses
+		// $.when(myGithub, yourGithub)
+		// .done(function(mine, yours) {
+		// 	console.log(mine, yours);
+		// })
+		// .fail(function(err) {
+		// 	console.log(err);
+		// })
+
+		// const cameraPromise = navigator.mediaDevices.getUserMedia({ video: true});
+
+		// cameraPromise
+		// 	.then(function(res) {
+		// 		console.log(`we're watching`);
+		// 	}).catch(function(err){
+		// 		console.log(`no access ${err}`);
+		// 	});
+
+// =============
+		// Fetch is a JavaScript way to replicate what JQuery does with the ajax method
+		// fetch({url: 'https://pokeapi.co/api/v2/pokemon/1/', dataType: 'JSON', data {etc.})
+		// .then(function(res) {
+		// 	return res.json();
+		// })
+		// .then(function(data) {
+		// 	console.log(data);
+		// })
+		// .catch(function(err) {
+		// 	alert(`Things went wrong ${err}`)
+		// })
+		
+		// // Async Await is another Jaavscript alternative to JQuery's ajax method
+		// async function grabPokemon() {
+		// 	try {
+		// 		const pokeData = fetch('https://pokeapi.co/api/v2/pokemon/1/');
+		// 		const pokeData2 = fetch('https://pokeapi.co/api/v2/pokemon/2/');
+		// 		console.log(pokeData);
+		// 		pokeData.then(data => {return data.json().then(res => [console.log(res)])})
+		// 	} catch(err) {
+		// 		consolelog(err);
+		// 	}
+		// }
+
+		// With arrow function
+		// const grabPokemon = async () => {
+
+		// }
+// =============
+// Make our own promise
+
+// The getCoffee function returns a promise. This is similar to Fetch, as they return the same type of object.
+// function getCoffee() {
+// 	// note: Resolve is success, reject is failure
+// 	return new Promise(function(resolve, reject) {
+// 	        // after 2 seconds, return coffee
+// 	        // api request 1
+// 	        // retruned data from API request
+// 	        // api request 2
+// 	       	// returned data from API request
+// 	        setTimeout(() => resolve('Coffee is ready!'), 2000);
+// 	    });
+
+// }	
+
+// getCoffee()
+// .then(function(data) {
+// 	console.log(data);
+// })
+
+// ===========
+
+// USE THIS IN PROJECT 3 IF I USE MULTIPLE APIs
+// const app = {};
+
+// app.getPokemon = $.ajax({
+// 	url: 'https://pokeapi.co/api/v2/pokemon/1/',
+// 	dataType: 'JSON',
+// 	method: 'GET'
+// });
+
+// app.getPokemonTwo = $.ajax({
+// 	url: 'https://pokeapi.co/api/v2/pokemon/2/',
+// 	dataType: 'JSON',
+// 	method: 'GET'
+// });
+
+// // Once both requests above are done, then do something with dataOne and dataTwo
+// $.when(app.getPokemon, app.getPokemonTwo).then(function(dataOne, dataTwo) {
+// 	console.log(dataOne);
+// 	console.log(dataTwo);
+// })
+
+// ================
+// For an API that has multiple endpoints (whole bunch of pokemon)
+
+// function getPokemon(number) {
+//   $.ajax({
+//     url : `https://pokeapi.co/api/v2/pokemon/${number}/`,
+//     dataType : 'json',
+//     method: 'GET'
+//   })
+//   .then((pokemon) => {
+//     console.log(`${pokemon.name} is pokemon ${pokemon.id}`);
+//   });
+// }
+
+// for (let i = 1; i <= 3; i++) {
+// 	getPokemon(i);
+// }
+
+// These come out in. different order (asyncronously). So...
+
+// Now we make it so that the getPokemon function returns the promise
+function getPokemon(number) {
+  return $.ajax({
+    url : `https://pokeapi.co/api/v2/pokemon/${number}/`,
+    dataType : 'json',
+    method: 'GET'
+  })
+  .then((pokemon) => {
+    console.log(`${pokemon.name} is pokemon ${pokemon.id}`);
+  });
+}
+
+// We now want to push our promises into an array
+
+const pokePromises = [];
+for (let i = 1; i <= 3; i++) {
+	pokePromises.push(getPokemon(i));
+}
+
+
+	</script>
+</body>
+</html>
