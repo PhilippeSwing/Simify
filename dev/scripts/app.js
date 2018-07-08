@@ -1,17 +1,20 @@
 // Create variable for app object
 const app = {};
 
-  // const blue = $.isEmptyObject(mediaObjects);
-  // if (blue === true) {
-  // 	alert(`Please check your spelling or enter a valid title for your media category`);
-  // };
-
 app.init = () => {
 	// Similar API Key
 	app.similarKey = '311267-HackerYo-HR2IP9BD';
 
 	// OMDB API Key
 	app.omdbKey = '1661fa9d';
+
+	app.displayNoResultsError = () => {
+		// console.log('error function works')
+		const $noResultsError = $('<p>').addClass('inline-error').text('Sorry, we are unable to find results for your search. We might not have results for your search or your spelling is slightly off.');
+		console.log($noResultsError);
+		$('#error').append($noResultsError);
+	};
+	console.log(app.displayNoResultsError);
 
 	// Event Listener to cinlude everything that happens on form submission
 	$('.media__form').on('submit', function(event) {
@@ -52,6 +55,13 @@ app.init = () => {
 	    $.when(app.getMedia).then((mediaInfo) => {
 	      const mediaInfoArray = mediaInfo.Similar.Results;
 	      console.log(mediaInfoArray);
+
+	      const noResults = $.isEmptyObject(mediaInfoArray);
+	      if (noResults === true) {
+	      	app.displayNoResultsError();
+	      	// alert(`Please check your spelling or enter a valid title for your media category`);
+
+	      };
 	  		// If the mdeia typeis movies or shows, get results array from Promise #1 and map each movie title result to a promise for Promise #2. This will return an array of promises for API#2.
 	      if (userType === 'movies' || userType === 'shows') {
 		      const imdbPromiseArray = mediaInfoArray.map((title) => {
@@ -64,13 +74,17 @@ app.init = () => {
 		        app.imdbResultsArray = imdbResults;
 		        // console.log(app.imdbResultsArray);
 		        app.displayMedia(mediaInfoArray);
+		      }).fail(function(err) {
+		      	console.log(err);
 		      });
 		    // For media types that are not movies or shows, display the results on the page
 		  } else {
 		  	app.displayMedia(mediaInfoArray);
 		  };
+		}).fail(function(err) {
+		  console.log(err);
 		});
-
+		// This is a function to display the API promise results onto the page
 	    app.displayMedia = (allMediaArray) => {
 	    	// This method removes child nodes from the selected element(s). In this case we remove the div that contains all previous search results.
 	    	$('.media__container').empty();
@@ -115,7 +129,8 @@ app.init = () => {
 		    	};
 	    	});
 	    };
-
+	    // This is a function that displays an inline error under the search field when no results are returned from API#1 (empty array)
+	    
 	});
 }
 // This runs the app

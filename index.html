@@ -8,7 +8,7 @@
 MVP1 - Movies
 - Layout
 Page headings
-* Search field with placeholder content
+Search field with placeholder content - Decided not to do this
 
 - User input: 
 text input form
@@ -35,9 +35,8 @@ Pseudo Code
 *Add if/else statement for my app.display function to account for whether there is an IMDB rating. I should then be able to delete "if (userType === 'movies')" because IMDB will only display if it exists n the results
 * include the error method in my promises just in case there are failures in calling the API. Field level error instead of alert?
 * Field level error instead of alert if I get nothing back, i.e. incorrect spelling of media or media is not available (say sorry)
-* Field validation for my search input, i.e. if user adds extra spaces.
-* User Firecast?
-* Use Canvas?
+* User Firecast? Add an expandable chat window for "customer service" Add placeholder text or chat box header that says "How can I help you?"
+* Use Canvas? "S" logo that explodes when you click it. If not, just a cool "S" logo
 * Style my app using ideas from Themeforest
 
 MVP2 - Scroll
@@ -76,6 +75,7 @@ MVP3 -  -->
 			<div class="media__form__search">
 				<!-- <label for="media__search">Enter your movie title</label> -->
 				<input type="text" id="media__search">
+				<div id="error"></div>
 				<input type="submit" value="search" class="media__submit">
 			</div>
 
