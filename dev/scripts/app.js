@@ -132,6 +132,108 @@ app.init = () => {
 	    // This is a function that displays an inline error under the search field when no results are returned from API#1 (empty array)
 	    
 	});
+// APP LOGO ANIMATION	
+	app.logo = () => {
+		app.logoAnimate;
+
+		app.getRandomNumber = () => Math.floor(Math.random() * 256);
+
+		app.getRandomColour = () => {
+			app.red.getRandomNumber();
+			app.blue.getRandomNumber();
+			app.green.getRandomNumber();
+			app.rgb = `rgb(${red}, ${green}, ${blue})`
+			return app.rgb;
+		};
+
+		app.canvas = document.getElementById('canvas');
+		
+		app.ctx = app.canvas.getContext('2d');
+
+		let app.topS = () => {
+			app.ctx.clearRect(0, 0,  canvas.width, canvas.height);
+			app.ctx.beginPath();
+			app.ctx.fillStyle = '#000000';
+			// TOP PIECE
+			app.ctx.moveTo(100, 100);
+			app.ctx.lineTo(150, 75);
+			app.ctx.lineTo(110, 110);
+			// 2ND PIECE
+			app.ctx.moveTo(110, 110);
+			app.ctx.lineTo(120, 90);
+			app.ctx.lineTo(150, 135);
+			// 3RD PIECE
+			app.ctx.moveTo(150, 135);
+			app.ctx.lineTo(100, 160);
+			app.ctx.lineTo(140, 125);
+			app.ctx.fill();
+		};
+
+		app.topS();
+
+		app.oneLogoInterval = () => {
+			for (let i = 5; i <= 75; i = i + 5) {
+				setTimeout(function() {
+					app.topS = () => {
+						app.ctx.clearRect(0, 0,  canvas.width, canvas.height);
+						app.ctx.beginPath();
+						// TOP PIECE
+						app.ctx.moveTo((100 + i), (100 - i));
+						app.ctx.lineTo((150 + i), (75 - i));
+						app.ctx.lineTo((110 + i), (110 - i));
+						// app.ctx.arc((200 + i), (200 + i), 100, 1 * Math.PI, 1.7 * Math.PI);
+						// 2ND PIECE
+						app.ctx.moveTo((110 + i), (110 + i));
+						app.ctx.lineTo((120 + i), (90 + i));
+						app.ctx.lineTo((150 + i), (135 + i));
+						// 3RD PIECE
+						app.ctx.moveTo((150 - i), (135 + i));
+						app.ctx.lineTo((100 - i), (160 + i));
+						app.ctx.lineTo((140 - i), (125 + i));
+						app.ctx.fillStyle = app.getRandomColour();
+						app.ctx.fill();
+					};
+					app.topS();
+				}, (10 + i));
+
+				setTimeout(function() {
+					app.topS = () => {
+						app.ctx.clearRect(0, 0,  canvas.width, canvas.height);
+						app.ctx.beginPath();
+						app.ctx.moveTo((175 - i), (25 + i));
+						app.ctx.lineTo((225 - i), (0 + i));
+						app.ctx.lineTo((185 - i), (35 + i));
+						// app.ctx.arc((290 - i), (290 - i), 100, 1 * Math.PI, 1.7 * Math.PI);
+						// MIDDLE PIECE
+						app.ctx.moveTo((185 - i), (185 - i));
+						app.ctx.lineTo((195 - i), (165 - i));
+						app.ctx.lineTo((225 - i), (210 - i));
+						// 3RD PIECE
+						app.ctx.moveTo((75 + i), (210 - i));
+						app.ctx.lineTo((25 + i), (235 - i));
+						app.ctx.lineTo((65 + i), (200 - i));
+						app.ctx.fillStyle = app.getRandomColour();
+						app.ctx.fill();
+					};
+
+					app.topS();
+
+				}, (85 + i));
+			};
+		};
+		
+		app.canvas.addEventListener('mouseover', function() {
+			app.logoAnimate = setInterval(app.oneLogoInterval, 160);
+		});
+
+		app.canvas.addEventListener('mouseout', function() {
+			clearInterval(app.logoAnimate);
+			// app.ctx.fillStyle = '#000000';
+			app.topS();
+		});
+	};
+
+	app.logo();
 }
 // This runs the app
 $(function() {
