@@ -10,20 +10,37 @@ h1 {
 .wrapper__sec {
   max-width: 1000px; }
 
+body {
+  background-color: blue; }
+
 .header {
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center; }
 
+.header__prim {
+  margin-top: 0; }
+
+#canvas {
+  width: inherit;
+  background-color: transparent;
+  border-radius: 50%; }
+
+.search__form-section {
+  display: flex;
+  justify-content: center; }
+
 .media__form {
   display: flex;
-  flex-direction: column; }
+  flex-direction: column;
+  align-items: center; }
 
-.main__container {
-  margin: 0 auto; }
+.media__results-container {
+  margin: 0 auto;
+  background-color: white; }
 
-.media__container {
+.omdb__API-container {
   display: flex;
   flex-direction: column;
   align-items: center;

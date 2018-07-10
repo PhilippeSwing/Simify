@@ -19,6 +19,13 @@ h1 {
 // ========================
 
 // ========================
+// BODY
+body {
+	background-color: blue;
+}
+// ========================
+
+// ========================
 // HEADER
 .header {
 	display: flex;
@@ -28,23 +35,37 @@ h1 {
 }
 
 .header__prim {
-	// text-align: center;
+	margin-top: 0;
 }
 
-.media__form {
-	display: flex;
-	flex-direction: column;
+#canvas {
+	width: inherit;
+	background-color: transparent;
+	// border: 1px solid yellow;
+	border-radius: 50%;
 }
 // HEADER ENDS
 // ========================
 
 // ========================
 // MAIN
-.main__container {
-	margin: 0 auto;
+.search__form-section {
+	display: flex;
+	justify-content: center;
 }
 
-.media__container {
+.media__form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.media__results-container {
+	margin: 0 auto;
+	background-color: white;
+}
+
+.omdb__API-container {
 	display: flex;
 	flex-direction: column;
 	align-items: center;

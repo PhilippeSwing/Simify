@@ -69,48 +69,55 @@ MVP3 -  -->
 <body>
 <!-- HEADER -->
 	<header class="header wrapper__prim">
+		<div>
+			<canvas width="275" height="200" id="canvas"></canvas>
+		</div>
+
 		<h1 class="header__prim">Simify</h1>
-<!-- ==Media Input Form== -->
-		<form action="" class="media__form">
-			<div class="media__form__search">
-				<!-- <label for="media__search">Enter your movie title</label> -->
-				<input type="text" id="media__search">
-				<input type="submit" value="search" class="media__submit">
-				<div id="error"></div>
-			</div>
 
-			<canvas width="250" height="250" id="canvas">
-				
-			</canvas>
-
-			<div class="media__form__type">
-				<input type="radio" id="movies" name="type" value="movies">
-				<label for="movies">Movies</label>
-
-				<input type="radio" id="music" name="type" value="music">
-				<label for="music">Music</label>
-
-				<input type="radio" id="shows" name="type" value="shows">
-				<label for="shows">Television</label>
-
-				<input type="radio" id="books" name="type" value="books">
-				<label for="books">Books</label>
-
-				<input type="radio" id="authors" name="type" value="authors">
-				<label for="authors">Authors</label>
-
-				<input type="radio" id="games" name="type" value="games">
-				<label for="games">Games</label>
-			</div>
-		</form>
-<!-- ==Media Input Form Ends== -->
 	</header>
 <!-- HEADER ENDS -->
 <!-- ======================== -->
+
+<!-- ======================== -->
 <!-- MAIN -->
-	<main class="wrapper__prim">
-		<div class="main__container wrapper__sec">
-			<div class="media__container">
+	<main>
+<!-- ==Media Input Form== -->
+		<section class="search__form-section wrapper__prim">
+			<form action="" class="media__form">
+				<div class="media__form__search">
+					<!-- <label for="media__search">Enter your movie title</label> -->
+					<input type="text" id="media__search">
+					<input type="submit" value="search" class="media__submit">
+					<div id="error"></div>
+				</div>
+
+				<div class="media__form__type">
+					<input type="radio" id="movies" name="type" value="movies">
+					<label for="movies">Movies</label>
+
+					<input type="radio" id="music" name="type" value="music">
+					<label for="music">Music</label>
+
+					<input type="radio" id="shows" name="type" value="shows">
+					<label for="shows">Television</label>
+
+					<input type="radio" id="books" name="type" value="books">
+					<label for="books">Books</label>
+
+					<input type="radio" id="authors" name="type" value="authors">
+					<label for="authors">Authors</label>
+
+					<input type="radio" id="games" name="type" value="games">
+					<label for="games">Games</label>
+				</div>
+			</form>
+		</section>
+<!-- ==Media Input Form Ends== -->
+<!-- ======================== -->
+<!-- ==Media Search Results== -->
+		<section class="media__results-container wrapper__sec">
+			<div class="TasteDive__API-container">
 			<!-- <a href=""></a> -->
 
 			<!-- <ul class="similar-list">
@@ -120,12 +127,13 @@ MVP3 -  -->
 			<!-- <iframe class="youtube-clip" width="" height="" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> -->
 			</div>
 
-			<div class="imdb">
-				
-			</div>
-		</div>
+			<div class="omdb__API-container"></div>
+		</section>
+<!-- ==Media Search Results Ends== -->
 	</main>
 <!-- MAIN ENDS -->
+<!-- ======================== -->
+
 <!-- ======================== -->
 <!-- FOOTER -->
 	<footer>

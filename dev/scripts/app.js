@@ -2,6 +2,9 @@
 const app = {};
 
 app.init = () => {
+// ================================================
+// Similar and OMDB APIs: Get Results and display
+// ================================================
 	// Similar API Key
 	app.similarKey = '311267-HackerYo-HR2IP9BD';
 
@@ -49,7 +52,7 @@ app.init = () => {
 		               apikey: '1661fa9d',
 		               t: movieTitle
 		             }
-		           });
+		    });
 		};
 		// Get results for Promise#1
 	    $.when(app.getMedia).then((mediaInfo) => {
@@ -74,8 +77,6 @@ app.init = () => {
 		        app.imdbResultsArray = imdbResults;
 		        // console.log(app.imdbResultsArray);
 		        app.displayMedia(mediaInfoArray);
-		      }).fail(function(err) {
-		      	console.log(err);
 		      });
 		    // For media types that are not movies or shows, display the results on the page
 		  } else {
@@ -112,9 +113,9 @@ app.init = () => {
 		    				const $mediaImdb = $('<p>').addClass('imdb-rating').text(element.imdbRating);
 		    				// This accounts for results that do not have YouTube URLs
 		    				if (singleMedia.yUrl === null) {
-		    					$('.media__container').append($mediaTitle, $mediaDescription, $mediaWiki, $mediaImdb);
+		    					$('.TasteDive__API-container').append($mediaTitle, $mediaDescription, $mediaWiki, $mediaImdb);
 		    				} else {
-		    				$('.media__container').append($mediaTitle, $mediaDescription, $mediaWiki, $mediaYouTube, $mediaImdb);
+		    				$('.TasteDive__API-container').append($mediaTitle, $mediaDescription, $mediaWiki, $mediaYouTube, $mediaImdb);
 		    				};
 		    			};
 		    		});
@@ -122,118 +123,113 @@ app.init = () => {
 		    	} else {
 		    		// This accounts for results that do not have YouTube URLs
 		    		if (singleMedia.yUrl === null) {
-		    			$('.media__container').append($mediaTitle, $mediaDescription, $mediaWiki);
+		    			$('.TasteDive__API-container').append($mediaTitle, $mediaDescription, $mediaWiki);
 		    		} else {
-		    		$('.media__container').append($mediaTitle, $mediaDescription, $mediaWiki, $mediaYouTube);
+		    		$('.TasteDive__API-container').append($mediaTitle, $mediaDescription, $mediaWiki, $mediaYouTube);
 		    		};
 		    	};
 	    	});
 	    };
-	    // This is a function that displays an inline error under the search field when no results are returned from API#1 (empty array)
-	    
+	    // This is a function that displays an inline error under the search field when no results are returned from API#1 (empty array) 
 	});
-// APP LOGO ANIMATION	
-	app.logo = () => {
-		app.logoAnimate;
+// ================================================
+// Logo Animation
+// ================================================
+	let logoAnimate;
 
-		app.getRandomNumber = () => Math.floor(Math.random() * 256);
+	const getRandomNumber = () => Math.floor(Math.random() * 256);
 
-		app.getRandomColour = () => {
-			app.red.getRandomNumber();
-			app.blue.getRandomNumber();
-			app.green.getRandomNumber();
-			app.rgb = `rgb(${red}, ${green}, ${blue})`
-			return app.rgb;
-		};
-
-		app.canvas = document.getElementById('canvas');
-		
-		app.ctx = app.canvas.getContext('2d');
-
-		let app.topS = () => {
-			app.ctx.clearRect(0, 0,  canvas.width, canvas.height);
-			app.ctx.beginPath();
-			app.ctx.fillStyle = '#000000';
-			// TOP PIECE
-			app.ctx.moveTo(100, 100);
-			app.ctx.lineTo(150, 75);
-			app.ctx.lineTo(110, 110);
-			// 2ND PIECE
-			app.ctx.moveTo(110, 110);
-			app.ctx.lineTo(120, 90);
-			app.ctx.lineTo(150, 135);
-			// 3RD PIECE
-			app.ctx.moveTo(150, 135);
-			app.ctx.lineTo(100, 160);
-			app.ctx.lineTo(140, 125);
-			app.ctx.fill();
-		};
-
-		app.topS();
-
-		app.oneLogoInterval = () => {
-			for (let i = 5; i <= 75; i = i + 5) {
-				setTimeout(function() {
-					app.topS = () => {
-						app.ctx.clearRect(0, 0,  canvas.width, canvas.height);
-						app.ctx.beginPath();
-						// TOP PIECE
-						app.ctx.moveTo((100 + i), (100 - i));
-						app.ctx.lineTo((150 + i), (75 - i));
-						app.ctx.lineTo((110 + i), (110 - i));
-						// app.ctx.arc((200 + i), (200 + i), 100, 1 * Math.PI, 1.7 * Math.PI);
-						// 2ND PIECE
-						app.ctx.moveTo((110 + i), (110 + i));
-						app.ctx.lineTo((120 + i), (90 + i));
-						app.ctx.lineTo((150 + i), (135 + i));
-						// 3RD PIECE
-						app.ctx.moveTo((150 - i), (135 + i));
-						app.ctx.lineTo((100 - i), (160 + i));
-						app.ctx.lineTo((140 - i), (125 + i));
-						app.ctx.fillStyle = app.getRandomColour();
-						app.ctx.fill();
-					};
-					app.topS();
-				}, (10 + i));
-
-				setTimeout(function() {
-					app.topS = () => {
-						app.ctx.clearRect(0, 0,  canvas.width, canvas.height);
-						app.ctx.beginPath();
-						app.ctx.moveTo((175 - i), (25 + i));
-						app.ctx.lineTo((225 - i), (0 + i));
-						app.ctx.lineTo((185 - i), (35 + i));
-						// app.ctx.arc((290 - i), (290 - i), 100, 1 * Math.PI, 1.7 * Math.PI);
-						// MIDDLE PIECE
-						app.ctx.moveTo((185 - i), (185 - i));
-						app.ctx.lineTo((195 - i), (165 - i));
-						app.ctx.lineTo((225 - i), (210 - i));
-						// 3RD PIECE
-						app.ctx.moveTo((75 + i), (210 - i));
-						app.ctx.lineTo((25 + i), (235 - i));
-						app.ctx.lineTo((65 + i), (200 - i));
-						app.ctx.fillStyle = app.getRandomColour();
-						app.ctx.fill();
-					};
-
-					app.topS();
-
-				}, (85 + i));
-			};
-		};
-		
-		app.canvas.addEventListener('mouseover', function() {
-			app.logoAnimate = setInterval(app.oneLogoInterval, 160);
-		});
-
-		app.canvas.addEventListener('mouseout', function() {
-			clearInterval(app.logoAnimate);
-			// app.ctx.fillStyle = '#000000';
-			app.topS();
-		});
+	app.getRandomColour = () => {
+		const red = getRandomNumber();
+		const blue = getRandomNumber();
+		const green = getRandomNumber();
+		const rgb = `rgb(${red}, ${green}, ${blue})`
+		return rgb;
 	};
 
-	app.logo();
+	const canvas = document.getElementById('canvas');
+	
+	const ctx = canvas.getContext('2d');
+
+	let topS = () => {
+		ctx.clearRect(0, 0,  canvas.width, canvas.height);
+		ctx.beginPath();
+		ctx.fillStyle = '#000000';
+		// TOP PIECE
+		ctx.moveTo(100, 100);
+		ctx.lineTo(150, 75);
+		ctx.lineTo(110, 110);
+		// 2ND PIECE
+		ctx.moveTo(110, 110);
+		ctx.lineTo(120, 90);
+		ctx.lineTo(150, 135);
+		// 3RD PIECE
+		ctx.moveTo(150, 135);
+		ctx.lineTo(100, 160);
+		ctx.lineTo(140, 125);
+		ctx.fill();
+	};
+
+	topS();
+
+	let oneLogoInterval = () => {
+		for (let i = 1; i <= 50; i = i + 1) {
+			setTimeout(function() {
+				topS = () => {
+					ctx.clearRect(0, 0,  canvas.width, canvas.height);
+					ctx.beginPath();
+					// TOP PIECE
+					ctx.moveTo((100 + i), (100 - i));
+					ctx.lineTo((150 + i), (75 - i));
+					ctx.lineTo((110 + i), (110 - i));
+					// ctx.arc((200 + i), (200 + i), 100, 1 * Math.PI, 1.7 * Math.PI);
+					// 2ND PIECE
+					ctx.moveTo((110 + i), (110 + i));
+					ctx.lineTo((120 + i), (90 + i));
+					ctx.lineTo((150 + i), (135 + i));
+					// 3RD PIECE
+					ctx.moveTo((150 - i), (135 + i));
+					ctx.lineTo((100 - i), (160 + i));
+					ctx.lineTo((140 - i), (125 + i));
+					ctx.fillStyle = app.getRandomColour();
+					ctx.fill();
+				};
+				topS();
+			}, (10 + i));
+
+			setTimeout(function() {
+				topS = () => {
+					ctx.clearRect(0, 0,  canvas.width, canvas.height);
+					ctx.beginPath();
+					ctx.moveTo((150 - i), (50 + i));
+					ctx.lineTo((200 - i), (25 + i));
+					ctx.lineTo((160 - i), (60 + i));
+					// ctx.arc((290 - i), (290 - i), 100, 1 * Math.PI, 1.7 * Math.PI);
+					// MIDDLE PIECE
+					ctx.moveTo((160 - i), (160 - i));
+					ctx.lineTo((170 - i), (140 - i));
+					ctx.lineTo((200 - i), (185 - i));
+					// 3RD PIECE
+					ctx.moveTo((100 + i), (185 - i));
+					ctx.lineTo((50 + i), (210 - i));
+					ctx.lineTo((90 + i), (175 - i));
+					ctx.fillStyle = app.getRandomColour();
+					ctx.fill();
+				};
+
+				topS();
+
+			}, (60 + i));
+		};
+	};
+	
+	canvas.addEventListener('mouseover', function() {
+		logoAnimate = setInterval(oneLogoInterval, 110);
+	});
+
+	canvas.addEventListener('mouseout', function() {
+		clearInterval(logoAnimate);
+	});
 }
 // This runs the app
 $(function() {
