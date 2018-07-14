@@ -169,67 +169,58 @@ app.init = () => {
 		    	};
 	    	});
 	    };
-	    // ================================================
-	    // Firebase: Media Favourites List
-	    // ================================================
-	    // This variable stores the element(s) in the form I want to get value(s) from. In this case it the h2 representing the media title and the h2 representing the media type.
-	    
-
-	    // const title = mediaTitleElement.text();
-	    // console.log(title);
-	    // Event listener for adding media type and title to the list submitting the form/printing the list
-	    mediaContainer.on('click', '.add-button', function(e) {
-	        // e.preventDefault();
-
-	        // console.log($(this).prevAll('.media__title')[0].innerText);
-	       
-	        const type = $(this).prevAll('.media__type')[0].innerText;
-	        const title = $(this).prevAll('.media__title')[0].innerText;
-	        console.log(type);
-
-	        const mediaObject = {
-	        	type,
-	        	title
-	        }
-	        // Add the information to Firebase
-	        app.mediaList.push(mediaObject);
-	    });
-	    console.log(app.mediaList);
-	    // Get the type and title information from Firebase
-	    app.mediaList.limitToLast(10).on('child_added',function(mediaInfo) {
-	    	console.log(mediaInfo);
-	    	const data = mediaInfo.val();
-	    	const mediaTypeFB = data.type;
-	    	const mediaTitleFB = data.title;
-	    	const key = mediaInfo.key;
-	    	// Create List Item taht includes the type and title
-	    	const li = `<li id="key-${key}">
-	    					<strong>${mediaTypeFB}:</strong>
-	    					<p>${mediaTitleFB}</p>
-	    					<button id="${key}" class="delete"><i class="fas fa-times-circle"></i></button>
-	    				</li>`
-	    	favouritesList.append(li);
-	    	favouritesList[0].scrollTop = favouritesList[0].scrollHeight;
-	    });
-	    // Remove list item from Firebase when the delete icon is clicked
-	    favouritesList.on('click', '.delete', function() {
-	    	const id = $(this).attr('id');
-	    	
-	    	app.database.ref(`/mediaList/${id}`).remove();
-	    });
-
-	    // Remove all items from Firebase when the Clear button is clicked
-	    $('.clear-list').on('click', function() {
-	    	app.database.ref(`/mediaList`).set(null);
-	    });
-	    // Remove list item from the front end append
-	    app.mediaList.limitToLast(10).on('child_removed', function (listItems) {
-		// console.log(favouritesList.find(listItems.key));
-		favouritesList.find(`#key-${listItems.key}`).remove();
-		});
-	    // **Click button on list form to print favourites list
 	    
 	});
+// ================================================
+// Firebase: Media Favourites List
+// ================================================
+	// Event listener for adding media type and title to the list submitting the form/printing the list
+    mediaContainer.on('click', '.add-button', function(e) {
+       // This variable stores the element(s) in the form I want to get value(s) from. In this case it the p representing the media title and the p representing the media type.
+        const type = $(this).prevAll('.media__type')[0].innerText;
+        const title = $(this).prevAll('.media__title')[0].innerText;
+        console.log(type);
+
+        const mediaObject = {
+        	type,
+        	title
+        }
+        // Add the information to Firebase
+        app.mediaList.push(mediaObject);
+    });
+    // console.log(app.mediaList);
+    // Get the type and title information from Firebase
+    app.mediaList.limitToLast(10).on('child_added',function(mediaInfo) {
+    	// console.log(mediaInfo);
+    	const data = mediaInfo.val();
+    	const mediaTypeFB = data.type;
+    	const mediaTitleFB = data.title;
+    	const key = mediaInfo.key;
+    	// Create List Item taht includes the type and title
+    	const li = `<li id="key-${key}">
+    					<strong>${mediaTypeFB}:</strong>
+    					<p>${mediaTitleFB}</p>
+    					<button id="${key}" class="delete"><i class="fas fa-times-circle"></i></button>
+    				</li>`
+    	favouritesList.append(li);
+    	favouritesList[0].scrollTop = favouritesList[0].scrollHeight;
+    });
+    // Remove list item from Firebase when the delete icon is clicked
+    favouritesList.on('click', '.delete', function() {
+    	const id = $(this).attr('id');
+    	
+    	app.database.ref(`/mediaList/${id}`).remove();
+    });
+
+    // Remove all items from Firebase when the Clear button is clicked
+    $('.clear-list').on('click', function() {
+    	app.database.ref(`/mediaList`).set(null);
+    });
+    // Remove list item from the front end append
+    app.mediaList.limitToLast(10).on('child_removed', function (listItems) {
+	// console.log(favouritesList.find(listItems.key));
+	favouritesList.find(`#key-${listItems.key}`).remove();
+	});	
 // ================================================
 // Logo Animation
 // ================================================
