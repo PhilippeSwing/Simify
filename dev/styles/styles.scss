@@ -5,7 +5,7 @@ html {
 }
 // ==Typography==
 h1 {
-	font-size: 3rem;
+	font-size: 5rem;
 }
 // ==Typography Ends==
 .wrapper__prim {
@@ -30,19 +30,22 @@ body {
 .header {
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
-	text-align: center;
+}
+
+.canvas-container {
+	// display: flex;
+	// justify-content: left;
 }
 
 .header__prim {
-	margin-top: 0;
+	align-self: center;
+	margin-top: -140px;
+	
 }
 
 #canvas {
-	width: inherit;
+	width: auto;
 	background-color: transparent;
-	// border: 1px solid yellow;
-	border-radius: 50%;
 }
 // HEADER ENDS
 // ========================

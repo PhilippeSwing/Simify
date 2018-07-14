@@ -1,6 +1,23 @@
 // Create variable for app object
 const app = {};
 
+app.config = () => {   
+    const config = {
+	    apiKey: "AIzaSyAe_LqYLVm-oVsk9GDEkZ9_F1phWiSosLY",
+	    authDomain: "js-summer-project3.firebaseapp.com",
+	    databaseURL: "https://js-summer-project3.firebaseio.com",
+	    projectId: "js-summer-project3",
+	    storageBucket: "",
+	    messagingSenderId: "1047793034155"
+	};
+    //This will initialize firebase with our config object
+    firebase.initializeApp(config);
+    // This method creates a new connection to the database
+    app.database = firebase.database();
+    // This creates a reference to a location in the database. I only need one for this project to store the media list
+    app.mediaList = app.database.ref('/mediaList');
+};
+
 app.init = () => {
 // ================================================
 // Similar and OMDB APIs: Get Results and display
@@ -10,14 +27,20 @@ app.init = () => {
 
 	// OMDB API Key
 	app.omdbKey = '1661fa9d';
+	// Firebase variables
+	const mediaTypeElement = $('.media__type')
+	const mediaTitleElement = $('.media__title');
 
+	const mediaContainer = $('.TasteDive__API-container');
+	const favouritesList = $('.favourites-list__list');
+	// This is a function that displays an inline error under the search field when no results are returned from API#1 (empty array)
 	app.displayNoResultsError = () => {
 		// console.log('error function works')
 		const $noResultsError = $('<p>').addClass('inline-error').text('Sorry, we are unable to find results for your search. We might not have results for your search or your spelling is slightly off.');
 		console.log($noResultsError);
 		$('#error').append($noResultsError);
 	};
-	console.log(app.displayNoResultsError);
+	// console.log(app.displayNoResultsError);
 
 	// Event Listener to cinlude everything that happens on form submission
 	$('.media__form').on('submit', function(event) {
@@ -88,10 +111,11 @@ app.init = () => {
 		// This is a function to display the API promise results onto the page
 	    app.displayMedia = (allMediaArray) => {
 	    	// This method removes child nodes from the selected element(s). In this case we remove the div that contains all previous search results.
-	    	$('.media__container').empty();
+	    	$('.TasteDive__API-container').empty();
 
 	    	allMediaArray.forEach((singleMedia) => {
 	    		// For each result in the array returned from API#1, create variables for all html elements I'll be appending.
+	    		const $mediaType = $('<h2>').addClass('media__type').text(singleMedia.Type);
 	    		const $mediaTitle = $('<h2>').addClass('media__title').text(singleMedia.Name);
 	    		const $mediaDescription = $('<p>').addClass('media__description').text(singleMedia.wTeaser);
 	    		const $mediaWiki = $('<a>').addClass('media__wiki').attr('href', singleMedia.wUrl).text('Wiki Page');
@@ -103,7 +127,18 @@ app.init = () => {
 	    			allowfullscreen: true,
 	    			height: 315,
 	    			width: 560
+	    		});	
+
+	    		const $addButton = $('<input>').attr({
+	    			type: 'button',
+	    			value: 'Add to List',
+	    			form: 'add-button-form',
+	    			class: 'add-button'
 	    		});
+	    		// ???IS THERE A WAY TO APPEND AN INPUT INSIDE OF A FORM??? IF NOT< JUST DO INPUT AND USE 'onCLick' event listener to submit the media typeand title to Firebase.
+
+	    		const $addForm = `<form id="add-button-form">${$addButton}</form>`;
+	    		
 	    		// console.log(app.imdbResultsArray);
 
 	    		// This matches the movie or show title from API#1 with API#2. It then creates a variable for the IMDB Rating returned from API#2 and appends it to the page.
@@ -113,9 +148,11 @@ app.init = () => {
 		    				const $mediaImdb = $('<p>').addClass('imdb-rating').text(element.imdbRating);
 		    				// This accounts for results that do not have YouTube URLs
 		    				if (singleMedia.yUrl === null) {
-		    					$('.TasteDive__API-container').append($mediaTitle, $mediaDescription, $mediaWiki, $mediaImdb);
+		    					$('.TasteDive__API-container').append($mediaType, $mediaTitle, $mediaDescription, $mediaWiki, $mediaImdb, $addButton);
+		    					// $('#add-button-form').append($addButton);
 		    				} else {
-		    				$('.TasteDive__API-container').append($mediaTitle, $mediaDescription, $mediaWiki, $mediaYouTube, $mediaImdb);
+		    				$('.TasteDive__API-container').append($mediaType, $mediaTitle, $mediaDescription, $mediaWiki, $mediaYouTube, $mediaImdb, $addButton);
+		    				// $('#add-button-form').append($addButton);
 		    				};
 		    			};
 		    		});
@@ -123,14 +160,75 @@ app.init = () => {
 		    	} else {
 		    		// This accounts for results that do not have YouTube URLs
 		    		if (singleMedia.yUrl === null) {
-		    			$('.TasteDive__API-container').append($mediaTitle, $mediaDescription, $mediaWiki);
+		    			$('.TasteDive__API-container').append($mediaType, $mediaTitle, $mediaDescription, $mediaWiki, $addButton);
+		    			// $('#add-button-form').append($addButton);
 		    		} else {
-		    		$('.TasteDive__API-container').append($mediaTitle, $mediaDescription, $mediaWiki, $mediaYouTube);
+		    		$('.TasteDive__API-container').append($mediaType, $mediaTitle, $mediaDescription, $mediaWiki, $mediaYouTube, $addButton);
+		    		// $('#add-button-form').append($addButton)
 		    		};
 		    	};
 	    	});
 	    };
-	    // This is a function that displays an inline error under the search field when no results are returned from API#1 (empty array) 
+	    // ================================================
+	    // Firebase: Media Favourites List
+	    // ================================================
+	    // This variable stores the element(s) in the form I want to get value(s) from. In this case it the h2 representing the media title and the h2 representing the media type.
+	    
+
+	    // const title = mediaTitleElement.text();
+	    // console.log(title);
+	    // Event listener for adding media type and title to the list submitting the form/printing the list
+	    mediaContainer.on('click', '.add-button', function(e) {
+	        // e.preventDefault();
+
+	        // console.log($(this).prevAll('.media__title')[0].innerText);
+	       
+	        const type = $(this).prevAll('.media__type')[0].innerText;
+	        const title = $(this).prevAll('.media__title')[0].innerText;
+	        console.log(type);
+
+	        const mediaObject = {
+	        	type,
+	        	title
+	        }
+	        // Add the information to Firebase
+	        app.mediaList.push(mediaObject);
+	    });
+	    console.log(app.mediaList);
+	    // Get the type and title information from Firebase
+	    app.mediaList.limitToLast(10).on('child_added',function(mediaInfo) {
+	    	console.log(mediaInfo);
+	    	const data = mediaInfo.val();
+	    	const mediaTypeFB = data.type;
+	    	const mediaTitleFB = data.title;
+	    	const key = mediaInfo.key;
+	    	// Create List Item taht includes the type and title
+	    	const li = `<li id="key-${key}">
+	    					<strong>${mediaTypeFB}:</strong>
+	    					<p>${mediaTitleFB}</p>
+	    					<button id="${key}" class="delete"><i class="fas fa-times-circle"></i></button>
+	    				</li>`
+	    	favouritesList.append(li);
+	    	favouritesList[0].scrollTop = favouritesList[0].scrollHeight;
+	    });
+	    // Remove list item from Firebase when the delete icon is clicked
+	    favouritesList.on('click', '.delete', function() {
+	    	const id = $(this).attr('id');
+	    	
+	    	app.database.ref(`/mediaList/${id}`).remove();
+	    });
+
+	    // Remove all items from Firebase when the Clear button is clicked
+	    $('.clear-list').on('click', function() {
+	    	app.database.ref(`/mediaList`).set(null);
+	    });
+	    // Remove list item from the front end append
+	    app.mediaList.limitToLast(10).on('child_removed', function (listItems) {
+		// console.log(favouritesList.find(listItems.key));
+		favouritesList.find(`#key-${listItems.key}`).remove();
+		});
+	    // **Click button on list form to print favourites list
+	    
 	});
 // ================================================
 // Logo Animation
@@ -153,9 +251,15 @@ app.init = () => {
 
 	let topS = () => {
 		ctx.clearRect(0, 0,  canvas.width, canvas.height);
+		// OUTER CIRCLE
 		ctx.beginPath();
-		ctx.fillStyle = '#000000';
+		ctx.lineWidth = 10;
+		ctx.strokeStyle = '#000';
+		ctx.arc(125, 117, 50, 0, 2 * Math.PI);
+		ctx.stroke();
+		ctx.closePath();
 		// TOP PIECE
+		ctx.beginPath();
 		ctx.moveTo(100, 100);
 		ctx.lineTo(150, 75);
 		ctx.lineTo(110, 110);
@@ -167,6 +271,7 @@ app.init = () => {
 		ctx.moveTo(150, 135);
 		ctx.lineTo(100, 160);
 		ctx.lineTo(140, 125);
+		ctx.fillStyle = '#000';
 		ctx.fill();
 	};
 
@@ -177,8 +282,15 @@ app.init = () => {
 			setTimeout(function() {
 				topS = () => {
 					ctx.clearRect(0, 0,  canvas.width, canvas.height);
+					// OUTER CIRCLE
 					ctx.beginPath();
+					ctx.lineWidth = 10;
+					ctx.strokeStyle = app.getRandomColour();
+					ctx.arc(125, 117, 110, 0, 2 * Math.PI);
+					ctx.stroke();
+					ctx.closePath();
 					// TOP PIECE
+					ctx.beginPath();
 					ctx.moveTo((100 + i), (100 - i));
 					ctx.lineTo((150 + i), (75 - i));
 					ctx.lineTo((110 + i), (110 - i));
@@ -195,11 +307,19 @@ app.init = () => {
 					ctx.fill();
 				};
 				topS();
-			}, (10 + i));
+			}, (i));
 
 			setTimeout(function() {
 				topS = () => {
 					ctx.clearRect(0, 0,  canvas.width, canvas.height);
+					// OUTER CIRCLE
+					ctx.beginPath();
+					ctx.lineWidth = 10;
+					ctx.strokeStyle = app.getRandomColour();
+					ctx.arc(125, 117, 110, 0, 2 * Math.PI);
+					ctx.stroke();
+					ctx.closePath();
+					// TOP PIECE
 					ctx.beginPath();
 					ctx.moveTo((150 - i), (50 + i));
 					ctx.lineTo((200 - i), (25 + i));
@@ -219,19 +339,54 @@ app.init = () => {
 
 				topS();
 
-			}, (60 + i));
+			}, (50 + i));
 		};
 	};
 	
 	canvas.addEventListener('mouseover', function() {
-		logoAnimate = setInterval(oneLogoInterval, 110);
+		logoAnimate = setInterval(oneLogoInterval, 100);
 	});
 
 	canvas.addEventListener('mouseout', function() {
+		ctx.arc(125, 117, 60, 0, 2 * Math.PI);
 		clearInterval(logoAnimate);
+		setTimeout(function() {
+			// ctx.clearRect(0, 0,  canvas.width, canvas.height);
+			// ctx.arc(125, 117, 60, 0, 2 * Math.PI);
+			topS = () => {
+			ctx.clearRect(0, 0,  canvas.width, canvas.height);
+			// OUTER CIRCLE
+			ctx.beginPath();
+			ctx.lineWidth = 10;
+			ctx.strokeStyle = '#000';
+			ctx.arc(125, 117, 50, 0, 2 * Math.PI);
+			ctx.stroke();
+			ctx.closePath();
+			// TOP PIECE
+			ctx.beginPath();
+			ctx.moveTo(100, 100);
+			ctx.lineTo(150, 75);
+			ctx.lineTo(110, 110);
+			// 2ND PIECE
+			ctx.moveTo(110, 110);
+			ctx.lineTo(120, 90);
+			ctx.lineTo(150, 135);
+			// 3RD PIECE
+			ctx.moveTo(150, 135);
+			ctx.lineTo(100, 160);
+			ctx.lineTo(140, 125);
+			ctx.fillStyle = '#000';
+			ctx.fill();
+			};
+			topS();
+		}, 100)
+		
+		
 	});
+	
 }
 // This runs the app
 $(function() {
+	app.config();
 	app.init();
 });
