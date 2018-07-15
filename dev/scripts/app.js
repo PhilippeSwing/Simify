@@ -36,7 +36,7 @@ app.init = () => {
 	// This is a function that displays an inline error under the search field when no results are returned from API#1 (empty array)
 	app.displayNoResultsError = () => {
 		// console.log('error function works')
-		const $noResultsError = $('<p>').addClass('inline-error').text('Sorry, we are unable to find results for your search. We might not have results for your search or your spelling is slightly off.');
+		const $noResultsError = $('<p>').addClass('inline-error').text('Sorry, we are unable to find your results. They might not be available or your spelling is incorrect. Please try again.');
 		console.log($noResultsError);
 		$('#error').append($noResultsError);
 	};
@@ -82,11 +82,10 @@ app.init = () => {
 	      const mediaInfoArray = mediaInfo.Similar.Results;
 	      console.log(mediaInfoArray);
 
-	      const noResults = $.isEmptyObject(mediaInfoArray);
-	      if (noResults === true) {
+	      app.noResults = $.isEmptyObject(mediaInfoArray);
+	      if (app.noResults === true) {
+	      	$('#error').empty();
 	      	app.displayNoResultsError();
-	      	// alert(`Please check your spelling or enter a valid title for your media category`);
-
 	      };
 	  		// If the mdeia typeis movies or shows, get results array from Promise #1 and map each movie title result to a promise for Promise #2. This will return an array of promises for API#2.
 	      if (userType === 'movies' || userType === 'shows') {
@@ -110,8 +109,11 @@ app.init = () => {
 		});
 		// This is a function to display the API promise results onto the page
 	    app.displayMedia = (allMediaArray) => {
-	    	// This method removes child nodes from the selected element(s). In this case we remove the div that contains all previous search results.
-	    	$('.TasteDive__API-container').empty();
+	    	// This method removes child nodes from the media results element(previous search results), but only when the search query brings new results. Otherwise it will keep the current results and display an error message.
+	    	if (app.noResults === false) {
+	    		$('#error').empty();
+	    		$('.TasteDive__API-container').empty();
+	    	};
 
 	    	allMediaArray.forEach((singleMedia) => {
 	    		// For each result in the array returned from API#1, create variables for all html elements I'll be appending.
@@ -137,7 +139,7 @@ app.init = () => {
 	    		});
 	    		// ???IS THERE A WAY TO APPEND AN INPUT INSIDE OF A FORM??? IF NOT< JUST DO INPUT AND USE 'onCLick' event listener to submit the media typeand title to Firebase.
 
-	    		const $addForm = `<form id="add-button-form">${$addButton}</form>`;
+	    		// const $addForm = `<form id="add-button-form">${$addButton}</form>`;
 	    		
 	    		// console.log(app.imdbResultsArray);
 
@@ -197,10 +199,10 @@ app.init = () => {
     	const mediaTitleFB = data.title;
     	const key = mediaInfo.key;
     	// Create List Item taht includes the type and title
-    	const li = `<li id="key-${key}">
+    	const li = `<li id="key-${key}" class="favourites-list__list-item">
     					<strong>${mediaTypeFB}:</strong>
     					<p>${mediaTitleFB}</p>
-    					<button id="${key}" class="delete"><i class="fas fa-times-circle"></i></button>
+    					<button id="${key}" class="delete no-print"><i class="fas fa-times-circle"></i></button>
     				</li>`
     	favouritesList.append(li);
     	favouritesList[0].scrollTop = favouritesList[0].scrollHeight;
@@ -244,8 +246,14 @@ app.init = () => {
 		ctx.clearRect(0, 0,  canvas.width, canvas.height);
 		// OUTER CIRCLE
 		ctx.beginPath();
+		ctx.lineWidth = 3;
+		ctx.strokeStyle = 'rgb(92, 92, 92)';
+		ctx.arc(125, 117, 55, 0, 2 * Math.PI);
+		ctx.stroke();
+		ctx.closePath();
+		ctx.beginPath();
 		ctx.lineWidth = 10;
-		ctx.strokeStyle = '#000';
+		ctx.strokeStyle = '#FFC900';
 		ctx.arc(125, 117, 50, 0, 2 * Math.PI);
 		ctx.stroke();
 		ctx.closePath();
@@ -262,7 +270,7 @@ app.init = () => {
 		ctx.moveTo(150, 135);
 		ctx.lineTo(100, 160);
 		ctx.lineTo(140, 125);
-		ctx.fillStyle = '#000';
+		ctx.fillStyle = '#FFC900';
 		ctx.fill();
 	};
 
@@ -348,8 +356,14 @@ app.init = () => {
 			ctx.clearRect(0, 0,  canvas.width, canvas.height);
 			// OUTER CIRCLE
 			ctx.beginPath();
+			ctx.lineWidth = 3;
+			ctx.strokeStyle = 'rgb(92, 92, 92)';
+			ctx.arc(125, 117, 55, 0, 2 * Math.PI);
+			ctx.stroke();
+			ctx.closePath();
+			ctx.beginPath();
 			ctx.lineWidth = 10;
-			ctx.strokeStyle = '#000';
+			ctx.strokeStyle = '#FFC900';
 			ctx.arc(125, 117, 50, 0, 2 * Math.PI);
 			ctx.stroke();
 			ctx.closePath();
@@ -366,7 +380,7 @@ app.init = () => {
 			ctx.moveTo(150, 135);
 			ctx.lineTo(100, 160);
 			ctx.lineTo(140, 125);
-			ctx.fillStyle = '#000';
+			ctx.fillStyle = '#FFC900';
 			ctx.fill();
 			};
 			topS();

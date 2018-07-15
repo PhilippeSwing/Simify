@@ -37,11 +37,13 @@ include the error method in my promises just in case there are failures in calli
 Field level error instead of alert if I get nothing back, i.e. incorrect spelling of media or media is not available (say sorry)
 User Firebase? Add an expandable chat window for "customer service" Add placeholder text or chat box header that says "How can I help you?"
 Use Canvas? "S" logo that explodes when you click it. If not, just a cool "S" logo
-* Debug why things are added to the list again when I do a new search (only a new search after changing the media type?)
-* Print the area with the close icon removed? Maybe a timed toggle class.
-* New favourites list closing icon
+* Print the area with the close icon removed?
 * Option to minimize favourites list
 * Style my app using ideas from Themeforest
+* Add labls to inputs and position them away to be hidden (accessibility)
+
+STRETCH GOALS
+* Only add items to favourites list since last page load by the current user
 * add pagination to allow for a large number results
 * Give user the option to choose how many results are loaded on the page.
 
@@ -71,18 +73,63 @@ MVP3 -  -->
 <head>
 	<meta charset="UTF-8">
 	<title>API Practice</title>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Limelight" rel="stylesheet">
 	<link rel="stylesheet" href="public/styles/style.css">
 </head>
 <body>
 <!-- HEADER -->
-	<header class="header wrapper__prim">
+	<header class="header wrapper__sec">
 		<div class="canvas-container">
 			<canvas width="241" height="232" id="canvas"></canvas>
 		</div>
 		<div class="header__prim">
-			<h1>Simify</h1>
+			<h1><span class="header__prim-span">Sim</span>ify</h1>
 		</div>
 
+<!-- ==Media Input Form== -->
+		<section class="search__form-section wrapper__prim">
+			<form action="" class="media__form">
+				<div class="media__form__search">
+					<div class="media__form__search-field">
+						<!-- <label for="media__search">Enter your movie title</label> -->
+						<input type="text" id="media__search">
+						<input type="submit" value="search" id="media__submit">
+					</div>
+
+				</div>
+
+				<div class="media__form__type">
+					<div class="media__form__button">
+						<input type="radio" id="movies" name="type" value="movies">
+						<label for="movies">Movies</label>
+					</div>
+					<div class="media__form__button">
+						<input type="radio" id="music" name="type" value="music">
+						<label for="music">Music</label>
+					</div>
+					<div class="media__form__button">
+						<input type="radio" id="shows" name="type" value="shows">
+						<label for="shows">Television</label>
+					</div>
+					<div class="media__form__button">
+						<input type="radio" id="books" name="type" value="books">
+						<label for="books">Books</label>
+					</div>
+					<div class="media__form__button">
+						<input type="radio" id="authors" name="type" value="authors">
+						<label for="authors">Authors</label>
+					</div>
+					<div class="media__form__button">
+						<input type="radio" id="games" name="type" value="games">
+						<label for="games">Games</label>
+					</div>
+				</div>
+
+				<div id="error"></div>
+			</form>
+		</section>
+<!-- ==Media Input Form Ends== -->
 	</header>
 <!-- HEADER ENDS -->
 <!-- ======================== -->
@@ -90,39 +137,7 @@ MVP3 -  -->
 <!-- ======================== -->
 <!-- MAIN -->
 	<main>
-<!-- ==Media Input Form== -->
-		<section class="search__form-section wrapper__prim">
-			<form action="" class="media__form">
-				<div class="media__form__search">
-					<!-- <label for="media__search">Enter your movie title</label> -->
-					<input type="text" id="media__search">
-					<input type="submit" value="search" class="media__submit">
-					<div id="error"></div>
-				</div>
 
-				<div class="media__form__type">
-					<input type="radio" id="movies" name="type" value="movies">
-					<label for="movies">Movies</label>
-
-					<input type="radio" id="music" name="type" value="music">
-					<label for="music">Music</label>
-
-					<input type="radio" id="shows" name="type" value="shows">
-					<label for="shows">Television</label>
-
-					<input type="radio" id="books" name="type" value="books">
-					<label for="books">Books</label>
-
-					<input type="radio" id="authors" name="type" value="authors">
-					<label for="authors">Authors</label>
-
-					<input type="radio" id="games" name="type" value="games">
-					<label for="games">Games</label>
-				</div>
-			</form>
-		</section>
-<!-- ==Media Input Form Ends== -->
-<!-- ======================== -->
 <!-- ==Media Search Results== -->
 		<section class="media__results-container wrapper__sec">
 			<div class="TasteDive__API-container">
@@ -142,22 +157,25 @@ MVP3 -  -->
 <!-- ==Media Search Results Ends== -->
 <!-- ======================== -->
 <!-- ==Media Favourites List== -->
-		<section class="favourites-list wrapper__favourites-container">
-			
-			<div class="wrapper__favourites-list">
-				<div id="print-list">
-					<div class="favourites-list__title">
-				  		<h3 class="favourites-list__description">My Favourites List</h3>
-					</div>
-
-					<ul class="favourites-list__list"></ul>
-				</div>
+		<section class="wrapper__favourites-container favourites-container">
+			<div class="favourites-list__title">
+		  		<h3 class="favourites-list__description">My Favourites List</h3>
+		  		<button class="favourites-minimize"><i class="fas fa-window-minimize"></i></button>
+		  		<button class="favourites-maximize"><i class="far fa-window-maximize"></i></button>
 			</div>
+			<div class="favourites-list-window">
+				<div class="wrapper__favourites-list">
 
-			<form action="" class="favourites-list__form">
-				<input type="button" class="clear-list" value="Clear">
-				<input type="button" onclick="printDiv('print-list')" value="Print"/>
-			</form>
+					<div id="print-list">
+						<ul class="favourites-list__list"></ul>
+					</div>
+				</div>
+
+				<form action="" class="favourites-list__form">
+					<input type="button" class="clear-list" value="Clear">
+					<input type="button" onclick="printDiv('print-list')" value="Print"/>
+				</form>
+			</div>
 		</section>
 	</main>
 <!-- ==Media Favourites List Ends== -->
@@ -177,8 +195,8 @@ MVP3 -  -->
 <!-- ======================== -->
 <!-- SCRIPT TAGS -->
 <!-- ==Load in Font Awesome== -->
-	<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
-	<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>
+	<!-- <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
+	<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script> -->
 <!-- ==Load in Firebase== -->
 	<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
 <!-- ==Load in JQuery== -->
