@@ -261,13 +261,13 @@ app.init = () => {
 		ctx.clearRect(0, 0,  canvas.width, canvas.height);
 		// OUTER CIRCLE
 		ctx.beginPath();
-		ctx.lineWidth = 3;
-		ctx.strokeStyle = 'rgb(92, 92, 92)';
-		ctx.arc(125, 117, 55, 0, 2 * Math.PI);
+		ctx.lineWidth = 7;
+		ctx.strokeStyle = 'black';
+		ctx.arc(125, 117, 50, 0, 2 * Math.PI);
 		ctx.stroke();
 		ctx.closePath();
 		ctx.beginPath();
-		ctx.lineWidth = 10;
+		ctx.lineWidth = 5;
 		ctx.strokeStyle = '#FFC900';
 		ctx.arc(125, 117, 50, 0, 2 * Math.PI);
 		ctx.stroke();
@@ -371,13 +371,13 @@ app.init = () => {
 			ctx.clearRect(0, 0,  canvas.width, canvas.height);
 			// OUTER CIRCLE
 			ctx.beginPath();
-			ctx.lineWidth = 3;
-			ctx.strokeStyle = 'rgb(92, 92, 92)';
-			ctx.arc(125, 117, 55, 0, 2 * Math.PI);
+			ctx.lineWidth = 7;
+			ctx.strokeStyle = 'black';
+			ctx.arc(125, 117, 50, 0, 2 * Math.PI);
 			ctx.stroke();
 			ctx.closePath();
 			ctx.beginPath();
-			ctx.lineWidth = 10;
+			ctx.lineWidth = 5;
 			ctx.strokeStyle = '#FFC900';
 			ctx.arc(125, 117, 50, 0, 2 * Math.PI);
 			ctx.stroke();
