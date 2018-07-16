@@ -1,3 +1,4 @@
+@charset "UTF-8";
 html {
   line-height: 1.15;
   -ms-text-size-adjust: 100%;
@@ -177,22 +178,45 @@ h1 {
   font-family: 'Limelight', cursive;
   letter-spacing: 2px; }
 
+h2 {
+  font-size: 3rem;
+  font-family: 'Limelight', cursive;
+  border-top: 5px double black;
+  padding-top: 10px;
+  margin: 0 0 20px 0;
+  text-transform: capitalize; }
+
+h3 {
+  font-size: 2rem;
+  margin: 0; }
+
+p {
+  font-size: 1.5rem;
+  color: #272727; }
+
 .wrapper__prim {
   max-width: 1440px; }
 
 .wrapper__sec {
   max-width: 1000px; }
 
+.hidden {
+  display: none; }
+
 body {
-  background-color: blue; }
+  background: linear-gradient(to bottom left, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url("../../images/project3BodyBackgroundImage.jpg");
+  background-size: static;
+  background-position: top; }
 
 .header {
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 0 auto;
   margin-top: 150px;
+  margin-bottom: 50px;
+  border: outset;
   background: linear-gradient(to bottom, #5c5c5c, #b4b4b4); }
 
 .canvas-container {
@@ -229,8 +253,9 @@ body {
   display: flex; }
 
 #media__search {
-  height: 30px;
-  width: 375px;
+  height: 35px;
+  width: 390px;
+  padding-left: 5px;
   font-size: 1.8rem;
   border: 1px solid #5c5c5c; }
 
@@ -246,7 +271,8 @@ body {
   justify-content: space-between; }
 
 input[name=type] {
-  margin-right: 7px; }
+  width: 2rem;
+  height: 2rem; }
 
 .media__form__button {
   margin-right: 7px; }
@@ -258,7 +284,7 @@ input[name=type] {
   color: red;
   font-size: 1.5rem;
   font-weight: 700;
-  width: 490px;
+  width: 505px;
   margin-bottom: 0;
   margin-top: 5px;
   text-align: center; }
@@ -268,13 +294,52 @@ input[name=type] {
 
 .media__results-container {
   margin: 0 auto;
-  background-color: white; }
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+  background-color: white;
+  padding: 25px;
+  border-style: outset; }
 
-.omdb__API-container {
+.TasteDive__API-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: column; }
+
+.media__wiki {
+  font-size: 2rem;
+  margin-bottom: 20px; }
+
+.media__youtube {
+  margin-bottom: 20px; }
+
+.add-button {
+  width: 150px;
+  padding: 10px 0;
+  background: linear-gradient(to top, gray, #e6e6e6);
+  font-size: 1.7rem;
+  border: 1px solid #5c5c5c;
+  border-radius: 5px;
+  margin-bottom: 15px; }
+
+.imdb-container {
+  display: flex; }
+
+.imdb-image-container {
+  width: 100px;
+  margin-bottom: 20px; }
+
+.imdb-container img {
+  display: block;
   width: 100%; }
+
+.imdb-container p {
+  margin: 10px 0 0px 10px;
+  font-size: 2.5rem;
+  color: black;
+  font-family: Arial; }
+
+.imdb-container p::before {
+  content: '⭐️';
+  margin-right: 2px; }
 
 .favourites-container {
   position: fixed;
@@ -285,6 +350,10 @@ input[name=type] {
   background-color: transparent;
   border: 5px solid red;
   border-radius: 50%; }
+
+footer {
+  margin: 0 auto;
+  margin-top: 250px; }
 
 .footer_text {
   text-align: center; }

@@ -4,8 +4,10 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}bo
 
 * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
 // GENERAL STYLES
-// Colours
+// ==Colours==
+// rgb(255, 201, 0)
 // rgb(92, 92, 92)
+// rgb(180, 180, 180)
 
 html {
 	font-size: 62.5%;
@@ -17,6 +19,25 @@ h1 {
 	font-family: 'Limelight', cursive;
 	letter-spacing: 2px;
 }
+
+h2 {
+	font-size: 3rem;
+	font-family: 'Limelight', cursive;
+	border-top: 5px double black;
+	padding-top: 10px;
+	margin: 0 0 20px 0;
+	text-transform: capitalize;
+}
+
+h3 {
+	font-size: 2rem;
+	margin: 0;
+}
+
+p {
+	font-size: 1.5rem;
+	color: #272727;
+}
 // ==Typography Ends==
 .wrapper__prim {
 	max-width: 1440px;
@@ -25,6 +46,10 @@ h1 {
 .wrapper__sec {
 	max-width: 1000px;
 }
+
+.hidden {
+	display: none;
+}
 // GENERAL STYLES ENDS
 // ========================
 
@@ -32,7 +57,10 @@ h1 {
 // BODY
 // ========================
 body {
-	background-color: blue;
+	background: linear-gradient(to bottom left, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url("../../images/project3BodyBackgroundImage.jpg");
+	background-size: static;
+	background-position: top;
+	// background-repeat: repeat;
 }
 // ========================
 // BODY ENDS
@@ -43,12 +71,14 @@ body {
 // ========================
 .header {
 	// border: 2px solid red;
-	box-shadow: 0 0 8px rgba(0,0,0,0.7); 
+	box-shadow: 0 0 10px rgba(0,0,0,0.7); 
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	margin: 0 auto;
 	margin-top: 150px;
+	margin-bottom: 50px;
+	border: outset;
 	// padding-bottom: 25px;
 	background: linear-gradient(to bottom, rgb(92, 92, 92), rgb(180, 180, 180));
 }
@@ -100,8 +130,9 @@ body {
 }
 
 #media__search {
-	height: 30px;
-	width: 375px;
+	height: 35px;
+	width: 390px;
+	padding-left: 5px;
 	font-size: 1.8rem;
 	border: 1px solid rgb(92, 92, 92);
 }
@@ -122,7 +153,10 @@ body {
 }
 
 input[name=type] {
-	margin-right: 7px;
+	// margin-right: 7px;
+	// padding-top: 5px;
+	width: 2rem;
+	height: 2rem;
 }
 
 .media__form__button {
@@ -139,7 +173,7 @@ input[name=type] {
 	color: red;
 	font-size: 1.5rem;
 	font-weight: 700;
-	width: 490px;
+	width: 505px;
 	margin-bottom: 0;
 	margin-top: 5px;
 	text-align: center;
@@ -158,17 +192,74 @@ input[name=type] {
 // ========================
 // MAIN
 // ========================
+// ==Media Search Results==
 .media__results-container {
 	margin: 0 auto;
+	// margin-bottom: 50px;
 	background-color: white;
+	box-shadow: 0 0 10px rgba(0,0,0,0.7); 
+	background-color: white;
+	padding: 25px;
+	border-style: outset;
 }
 
-.omdb__API-container {
+.TasteDive__API-container {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
+}
+
+.media__type__title {
+	// margin: 25px 25px 0 25px;
+}
+
+.media__wiki {
+	font-size: 2rem;
+	margin-bottom: 20px;
+}
+
+.media__youtube {
+	margin-bottom: 20px;
+}
+
+.add-button {
+	width: 150px;
+	padding: 10px 0;
+	background: linear-gradient(to top, rgb(128,128 ,128), rgb(230, 230, 230));
+	font-size: 1.7rem;
+    border: 1px solid rgb(92, 92, 92);
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+// ====IMDB Rating====
+.imdb-container {
+	display: flex;
+}
+
+.imdb-image-container {
+	width: 100px;
+	margin-bottom: 20px;
+}
+
+.imdb-container img {
+	display: block;
 	width: 100%;
 }
+
+.imdb-container p {
+	margin: 10px 0 0px 10px;
+    font-size: 2.5rem;
+    color: black;
+    font-family: Arial;
+}
+
+.imdb-container p::before {
+	content: '⭐️';
+	margin-right: 2px;
+}
+
+// ====IMDB Rating Ends====
+// ==Media Search Results Ends==
+// ========================
 // ==Favourites List==
 .favourites-container {
 	position: fixed;
@@ -188,8 +279,14 @@ input[name=type] {
 
 // ========================
 // FOOTER
+footer {
+	margin: 0 auto;
+	margin-top: 250px;
+}
+
 .footer_text {
 	text-align: center;
+
 }
 // ========================
 // FOOTER ENDS

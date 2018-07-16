@@ -46,7 +46,7 @@ app.init = () => {
 	$('.media__form').on('submit', function(event) {
 		// Prevent default for submit inputs
 		event.preventDefault();
-		// Get value of the media type the user checked
+		
 		const userType = $('input[name=type]:checked').val();
 		// Get the value of what the user entered in the search field
 		const userInput = $('#media__search').val();
@@ -59,6 +59,7 @@ app.init = () => {
 		    data: {
 		      k: '311267-HackerYo-HR2IP9BD',
 		      q: `${userInput}`,
+		      // q: 'superman',
 		      type: `${userType}`,
 		      info: 1,
 		      limit: 10
@@ -86,8 +87,12 @@ app.init = () => {
 	      if (app.noResults === true) {
 	      	$('#error').empty();
 	      	app.displayNoResultsError();
+	      } else {
+	      	// Display media results container with the right margins
+	      	$('footer').css('margin-top', '0px');
+	      	$('.media__results-container').css('margin-bottom', '50px').removeClass('hidden');
 	      };
-	  		// If the mdeia typeis movies or shows, get results array from Promise #1 and map each movie title result to a promise for Promise #2. This will return an array of promises for API#2.
+	  		// If the media type is movies or shows, get results array from Promise #1 and map each movie title result to a promise for Promise #2. This will return an array of promises for API#2.
 	      if (userType === 'movies' || userType === 'shows') {
 		      const imdbPromiseArray = mediaInfoArray.map((title) => {
 		        return app.getImdbRating(title.Name);
@@ -101,9 +106,12 @@ app.init = () => {
 		        app.displayMedia(mediaInfoArray);
 		      });
 		    // For media types that are not movies or shows, display the results on the page
-		  } else {
-		  	app.displayMedia(mediaInfoArray);
-		  };
+		    } else {
+		  		app.displayMedia(mediaInfoArray);
+		    };
+		  // } else if (userType === 'music' || userType === 'books' || userType === 'authors' || userType === 'games'){
+		  // 	app.displayMedia(mediaInfoArray);
+		  // };
 		}).fail(function(err) {
 		  console.log(err);
 		});
@@ -117,10 +125,16 @@ app.init = () => {
 
 	    	allMediaArray.forEach((singleMedia) => {
 	    		// For each result in the array returned from API#1, create variables for all html elements I'll be appending.
-	    		const $mediaType = $('<h2>').addClass('media__type').text(singleMedia.Type);
-	    		const $mediaTitle = $('<h2>').addClass('media__title').text(singleMedia.Name);
+	    		// KEEPING TYPE AND TITLE SEPARATE
+	    		// const $mediaType = $('<h2>').addClass('media__type').text(singleMedia.Type);
+	    		// const $mediaTitle = $('<h2>').addClass('media__title').text(singleMedia.Name);
+	    		// COMBINING TYPE AND TITLE
+	    		// const $mediaTypeTitle = $(`<div class="media__type__title-container"><h2 class="media__type">${singleMedia.Type}:</h2><h2 class="media__title">${singleMedia.Name}</h2></div>`);
+	    		// COMBINING TYPE AND TITLE IN ONE H2
+	    		const $mediaTypeTitle = $(`<h2 class="media__type__title">${singleMedia.Type}: ${singleMedia.Name}</h2>`);
+	    		const $mediaDescriptionHeader = $('<h3>').addClass('media__description-header').text('Description');
 	    		const $mediaDescription = $('<p>').addClass('media__description').text(singleMedia.wTeaser);
-	    		const $mediaWiki = $('<a>').addClass('media__wiki').attr('href', singleMedia.wUrl).text('Wiki Page');
+	    		const $mediaWiki = $('<a>').addClass('media__wiki').attr('href', singleMedia.wUrl).text('Wikipedia');
 	    		const $mediaYouTube = $('<iframe>', {
 	    			class: 'media__youtube',
 	    			src: singleMedia.yUrl,
@@ -133,10 +147,12 @@ app.init = () => {
 
 	    		const $addButton = $('<input>').attr({
 	    			type: 'button',
-	    			value: 'Add to List',
+	    			value: 'Add to Favourites',
 	    			form: 'add-button-form',
 	    			class: 'add-button'
 	    		});
+
+	    		// const $addButton = $(`<form><input type="button" value="Add to Favourites" form="add-button-form" class="add-button"></input></form>`);
 	    		// ???IS THERE A WAY TO APPEND AN INPUT INSIDE OF A FORM??? IF NOT< JUST DO INPUT AND USE 'onCLick' event listener to submit the media typeand title to Firebase.
 
 	    		// const $addForm = `<form id="add-button-form">${$addButton}</form>`;
@@ -147,14 +163,14 @@ app.init = () => {
 	    		if (app.imdbResultsArray !== undefined) {
 		    		app.imdbResultsArray.find((element) => {
 		    			if (singleMedia.Name === element.Title) {
-		    				const $mediaImdb = $('<p>').addClass('imdb-rating').text(element.imdbRating);
+		    				const $mediaImdb = $('<p>').addClass('imdb-rating').text(`${element.imdbRating}/10`);
+		    				// const $imdbLogo = $('<img>').addClass('imdb-logo').attr('src', 'https://upload.wikimedia.org/wikipedia/commons/6/69/IMDB_Logo_2016.svg');
+		    				const $imdbLogoRating = $(`<div class="imdb-container"><div class="imdb-image-container"><img src="https://upload.wikimedia.org/wikipedia/commons/6/69/IMDB_Logo_2016.svg" alt="IMDB Logo"></div><p class="imdb-rating">${element.imdbRating}/10</p></div>`);
 		    				// This accounts for results that do not have YouTube URLs
 		    				if (singleMedia.yUrl === null) {
-		    					$('.TasteDive__API-container').append($mediaType, $mediaTitle, $mediaDescription, $mediaWiki, $mediaImdb, $addButton);
-		    					// $('#add-button-form').append($addButton);
+		    					mediaContainer.append($mediaTypeTitle, $mediaDescriptionHeader, $mediaDescription, $mediaWiki, $imdbLogoRating, $addButton);
 		    				} else {
-		    				$('.TasteDive__API-container').append($mediaType, $mediaTitle, $mediaDescription, $mediaWiki, $mediaYouTube, $mediaImdb, $addButton);
-		    				// $('#add-button-form').append($addButton);
+		    				mediaContainer.append($mediaTypeTitle, $mediaDescriptionHeader, $mediaDescription, $mediaWiki, $imdbLogoRating, $mediaYouTube, $addButton);
 		    				};
 		    			};
 		    		});
@@ -162,11 +178,9 @@ app.init = () => {
 		    	} else {
 		    		// This accounts for results that do not have YouTube URLs
 		    		if (singleMedia.yUrl === null) {
-		    			$('.TasteDive__API-container').append($mediaType, $mediaTitle, $mediaDescription, $mediaWiki, $addButton);
-		    			// $('#add-button-form').append($addButton);
+		    			mediaContainer.append($mediaTypeTitle, $mediaDescriptionHeader, $mediaDescription, $mediaWiki, $addButton);
 		    		} else {
-		    		$('.TasteDive__API-container').append($mediaType, $mediaTitle, $mediaDescription, $mediaWiki, $mediaYouTube, $addButton);
-		    		// $('#add-button-form').append($addButton)
+		    		mediaContainer.append($mediaTypeTitle, $mediaDescriptionHeader, $mediaDescription, $mediaWiki, $mediaYouTube, $addButton);
 		    		};
 		    	};
 	    	});
@@ -179,29 +193,30 @@ app.init = () => {
 	// Event listener for adding media type and title to the list submitting the form/printing the list
     mediaContainer.on('click', '.add-button', function(e) {
        // This variable stores the element(s) in the form I want to get value(s) from. In this case it the p representing the media title and the p representing the media type.
-        const type = $(this).prevAll('.media__type')[0].innerText;
-        const title = $(this).prevAll('.media__title')[0].innerText;
-        console.log(type);
-
+        // const type = $(this).prevAll('.media__type')[0].innerText;
+        // const title = $(this).prevAll('.media__title')[0].innerText;
+        const typeAndTitle = $(this).prevAll('.media__type__title')[0].innerText
+      
         const mediaObject = {
-        	type,
-        	title
+        	// type,
+        	// title
+        	typeAndTitle
         }
         // Add the information to Firebase
         app.mediaList.push(mediaObject);
     });
     // console.log(app.mediaList);
     // Get the type and title information from Firebase
-    app.mediaList.limitToLast(10).on('child_added',function(mediaInfo) {
+    app.mediaList.limitToLast(5).on('child_added',function(mediaInfo) {
     	// console.log(mediaInfo);
     	const data = mediaInfo.val();
-    	const mediaTypeFB = data.type;
-    	const mediaTitleFB = data.title;
+    	// const mediaTypeFB = data.type;
+    	// const mediaTitleFB = data.title;
+    	const mediaFB = data.typeAndTitle;
     	const key = mediaInfo.key;
     	// Create List Item taht includes the type and title
     	const li = `<li id="key-${key}" class="favourites-list__list-item">
-    					<strong>${mediaTypeFB}:</strong>
-    					<p>${mediaTitleFB}</p>
+    					<p>${mediaFB}</p>
     					<button id="${key}" class="delete no-print"><i class="fas fa-times-circle"></i></button>
     				</li>`
     	favouritesList.append(li);
@@ -219,7 +234,7 @@ app.init = () => {
     	app.database.ref(`/mediaList`).set(null);
     });
     // Remove list item from the front end append
-    app.mediaList.limitToLast(10).on('child_removed', function (listItems) {
+    app.mediaList.limitToLast(5).on('child_removed', function (listItems) {
 	// console.log(favouritesList.find(listItems.key));
 	favouritesList.find(`#key-${listItems.key}`).remove();
 	});	
