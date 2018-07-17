@@ -39,9 +39,6 @@ User Firebase? Add an expandable chat window for "customer service" Add placehol
 Use Canvas? "S" logo that explodes when you click it. If not, just a cool "S" logo
 
 
-* Option to minimize favourites list
-* Style Favourites List pop-up
-* Style my app using ideas from Themeforest
 * Print the area with the close icon removed?
 * Add labels to inputs and position them away to be hidden (accessibility)
 * Responsive Design
@@ -53,7 +50,7 @@ STRETCH GOALS
 
 
 MVP2 - Scroll
-If the PI returns an empty array, display or alert an error message that tells them to check their spelling or enter a valid movie title.
+If the API returns an empty array, display or alert an error message that tells them to check their spelling or enter a valid movie title.
 Arrow at bottom of page to reveal more results
 
 MVP3 -  -->
@@ -163,21 +160,21 @@ MVP3 -  -->
 <!-- ==Media Favourites List== -->
 		<section class="wrapper__favourites-container favourites-container">
 			<div class="favourites-list__title">
-		  		<h3 class="favourites-list__description">My Favourites List</h3>
-		  		<button class="favourites-minimize"><i class="fas fa-window-minimize"></i></button>
-		  		<button class="favourites-maximize"><i class="far fa-window-maximize"></i></button>
+		  		<h3 class="favourites-list__description">My Favourites</h3>
+		  		<div class="favourites-list__title__buttons">
+			  		<button class="favourites-minimize"><i class="fas fa-window-minimize"></i></button>
+			  		<button class="favourites-maximize"><i class="far fa-window-maximize"></i></button>
+		  		</div>
 			</div>
-			<div class="favourites-list-window">
-				<div class="wrapper__favourites-list">
+			<div class="favourites-list-window hidden">
 
-					<div id="print-list">
-						<ul class="favourites-list__list"></ul>
-					</div>
+				<div id="print-list">
+					<ol class="favourites-list__list"></ol>
 				</div>
 
 				<form action="" class="favourites-list__form">
 					<input type="button" class="clear-list" value="Clear">
-					<input type="button" onclick="printDiv('print-list')" value="Print"/>
+					<input type="button" class="print-button" onclick="printDiv('print-list')" value="Print"/>
 				</form>
 			</div>
 		</section>

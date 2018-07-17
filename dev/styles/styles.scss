@@ -266,12 +266,104 @@ input[name=type] {
 	right: 0;
 	bottom: 0;
 	// z-index: 5;
+	border-radius: 10px 10px 0 0;
+	border: 2px solid rgb(255, 160 ,0);
+	// border-style: inset;
+	width: 388px;
+	// background-color: lightgrey;
+	background-color: rgb(255, 201, 0);
 }
+
+.favourites-list__title {
+	// background-color: rgb(255, 201, 0);
+	display: flex;
+	padding: 5px 0 5px 10px;
+	border-radius: 10px 10px 0 0;
+	// border-bottom: 2px double black;
+	// border-bottom-style: double;
+	width: 100%;
+	justify-content: space-between;
+}
+
+.favourites-list__title__buttons {
+	// display: flex;
+	// width: auto;
+	// justify-content: space-around;
+	margin-right: 15px;
+}
+
+.favourites-list__description {
+	// padding-right: 170px;
+}
+
+.favourites-list-window {
+	// background-color: lightgrey;
+	// background-color: rgb(255, 201, 0);
+	border-top-style: double;
+}
+
 .delete {
 	background-color: transparent;
-	border: 5px solid red;
-	border-radius: 50%;
+	// border: 5px solid red;
+	// border-radius: 50%;
+	border: none;
 }
+
+.favourites-list__list {
+	margin: 0;
+}
+
+.favourites-list__list-item {
+	display: flex;
+	justify-content: space-between;
+	border-bottom-style: dashed;
+}
+
+.favourites-list__list-item i {
+	font-size: 15px;
+	margin-right: 15px;
+}
+// ====Favourites Window Buttons====
+.hidden {
+	display: none;
+}
+
+.favourites-minimize {
+	// align-self: flex-end;
+	padding: 6px 8px;
+	// background-color: #FFAA00;
+	// background-color: rgb(255,135 ,0);
+	background: linear-gradient(to bottom right, rgb(255, 160 ,0), rgb(255, 190, 75));
+	border: 1px solid rgb(255,160 ,0);
+}
+
+.favourites-maximize {
+	// align-self: flex-end;
+	padding: 6px 8px;
+	// background-color: #FFAA00;
+	// background-color: rgb(225, 177, 0);
+	background: linear-gradient(to bottom right, rgb(255, 160 ,0), rgb(255, 190, 75));
+	border: 1px solid rgb(255,160 ,0);
+}
+// ====Favourites Window Buttons Ends====
+
+// ====Favourites Clear and Print Buttons====
+.favourites-list__form {
+	display: flex;
+	justify-content: flex-end;
+	margin-right: 15px;
+}
+
+.clear-list, .print-button {
+	padding: 6px 20px;
+	border-radius: 5px;
+	font-size: 1.5rem;
+	margin: 5px 0 5px 3px;
+	background: linear-gradient(to bottom, rgb(255, 160 ,0), rgb(255, 190, 75));
+	border: 1px solid rgb(255,160 ,0);
+}
+// ====Favourites Clear and Print Buttons====
+
 // ==Favourites List Ends==
 // ========================
 // MAIN ENDS

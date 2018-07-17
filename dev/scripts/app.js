@@ -131,6 +131,8 @@ app.init = () => {
 	    		// COMBINING TYPE AND TITLE
 	    		// const $mediaTypeTitle = $(`<div class="media__type__title-container"><h2 class="media__type">${singleMedia.Type}:</h2><h2 class="media__title">${singleMedia.Name}</h2></div>`);
 	    		// COMBINING TYPE AND TITLE IN ONE H2
+	    		// app.mediaType = singleMedia.Type;
+	    		// app.mediaTitle = singleMedia.Name;
 	    		const $mediaTypeTitle = $(`<h2 class="media__type__title">${singleMedia.Type}: ${singleMedia.Name}</h2>`);
 	    		const $mediaDescriptionHeader = $('<h3>').addClass('media__description-header').text('Description');
 	    		const $mediaDescription = $('<p>').addClass('media__description').text(singleMedia.wTeaser);
@@ -238,6 +240,16 @@ app.init = () => {
 	// console.log(favouritesList.find(listItems.key));
 	favouritesList.find(`#key-${listItems.key}`).remove();
 	});	
+	// Maximize and Minimize buttons for the Favourites List
+	$('.favourites-maximize').click(function () {
+		$('.favourites-list-window').slideDown(200).removeClass('hidden');
+	});
+
+	$('.favourites-minimize').click(function () {
+		$('.favourites-list-window').slideUp(200).addClass('hidden');
+	});
+	
+	
 // ================================================
 // Logo Animation
 // ================================================
