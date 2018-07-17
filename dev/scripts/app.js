@@ -142,9 +142,9 @@ app.init = () => {
 	    			src: singleMedia.yUrl,
 	    			id: singleMedia.yID,
 	    			frameborder: 0,
-	    			allowfullscreen: true,
-	    			height: 315,
-	    			width: 560
+	    			allowfullscreen: true
+	    			// height: 315
+	    			// max-width: 560
 	    		});	
 
 	    		const $addButton = $('<input>').attr({
@@ -209,7 +209,7 @@ app.init = () => {
     });
     // console.log(app.mediaList);
     // Get the type and title information from Firebase
-    app.mediaList.limitToLast(5).on('child_added',function(mediaInfo) {
+    app.mediaList.limitToLast(10).on('child_added',function(mediaInfo) {
     	// console.log(mediaInfo);
     	const data = mediaInfo.val();
     	// const mediaTypeFB = data.type;
@@ -249,7 +249,13 @@ app.init = () => {
 		$('.favourites-list-window').slideUp(200).addClass('hidden');
 	});
 	
-	
+	$(function(){
+$('#video').css({ width: $(window).innerWidth() + 'px', height: $(window).innerHeight() + 'px' });
+
+$(window).resize(function(){
+$('#video').css({ width: $(window).innerWidth() + 'px', height: $(window).innerHeight() + 'px' });
+  });
+});
 // ================================================
 // Logo Animation
 // ================================================
