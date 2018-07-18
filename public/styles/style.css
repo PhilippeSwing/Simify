@@ -280,6 +280,10 @@ input[name=type] {
 .media__form__button label {
   font-size: 1.5rem; }
 
+input[id=all],
+label[id=all] {
+  display: none; }
+
 .inline-error {
   color: red;
   font-size: 1.5rem;
@@ -370,12 +374,18 @@ input[name=type] {
   border: none; }
 
 .favourites-list__list {
-  margin: 0; }
+  margin: 0;
+  height: 250px;
+  overflow: scroll;
+  font-size: 1.5rem; }
 
 .favourites-list__list-item {
   display: flex;
   justify-content: space-between;
   border-bottom-style: dashed; }
+
+.favourites-list__list-item p {
+  display: inline-block; }
 
 .favourites-list__list-item i {
   font-size: 15px;
@@ -414,15 +424,31 @@ footer {
 .footer_text {
   text-align: center; }
 
-@media print {
-  .no-print, .fa-times-circle {
-    display: none !important; } }
-
 @media (max-width: 767px) {
   canvas {
     display: none; }
   .header__prim {
-    margin-top: 94px; } }
+    margin-top: 94px; }
+  input[name=type] {
+    display: none; }
+  .media__form__type {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 100;
+    background: linear-gradient(to bottom, #ffc900, white);
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column; }
+  .media__form__type label {
+    font-size: 4rem;
+    display: block; }
+  label[id=all] {
+    color: red; }
+  .hide {
+    display: none; } }
 
 @media (max-width: 480px) {
   .media__youtube {

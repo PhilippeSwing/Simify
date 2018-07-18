@@ -47,7 +47,7 @@ app.init = () => {
 		// Prevent default for submit inputs
 		event.preventDefault();
 		
-		const userType = $('input[name=type]:checked').val();
+		app.userType = $('input[name=type]:checked').val();
 		// Get the value of what the user entered in the search field
 		const userInput = $('#media__search').val();
 		// Promise for API#1
@@ -60,7 +60,7 @@ app.init = () => {
 		      k: '311267-HackerYo-HR2IP9BD',
 		      q: `${userInput}`,
 		      // q: 'superman',
-		      type: `${userType}`,
+		      type: `${app.userType}`,
 		      info: 1,
 		      limit: 10
 		    }
@@ -93,7 +93,7 @@ app.init = () => {
 	      	$('.media__results-container').css('margin-bottom', '50px').removeClass('hidden');
 	      };
 	  		// If the media type is movies or shows, get results array from Promise #1 and map each movie title result to a promise for Promise #2. This will return an array of promises for API#2.
-	      if (userType === 'movies' || userType === 'shows') {
+	      if (app.userType === 'movies' || app.userType === 'shows') {
 		      const imdbPromiseArray = mediaInfoArray.map((title) => {
 		        return app.getImdbRating(title.Name);
 		      });
@@ -109,7 +109,7 @@ app.init = () => {
 		    } else {
 		  		app.displayMedia(mediaInfoArray);
 		    };
-		  // } else if (userType === 'music' || userType === 'books' || userType === 'authors' || userType === 'games'){
+		  // } else if (app.userType === 'music' || app.userType === 'books' || app.userType === 'authors' || app.userType === 'games'){
 		  // 	app.displayMedia(mediaInfoArray);
 		  // };
 		}).fail(function(err) {
@@ -204,12 +204,13 @@ app.init = () => {
         	// title
         	typeAndTitle
         }
+        console.log(mediaObject);
         // Add the information to Firebase
         app.mediaList.push(mediaObject);
     });
     // console.log(app.mediaList);
     // Get the type and title information from Firebase
-    app.mediaList.limitToLast(10).on('child_added',function(mediaInfo) {
+    app.mediaList.on('child_added',function(mediaInfo) {
     	// console.log(mediaInfo);
     	const data = mediaInfo.val();
     	// const mediaTypeFB = data.type;
@@ -223,6 +224,7 @@ app.init = () => {
     				</li>`
     	favouritesList.append(li);
     	favouritesList[0].scrollTop = favouritesList[0].scrollHeight;
+    	console.log(favouritesList[0]);
     });
     // Remove list item from Firebase when the delete icon is clicked
     favouritesList.on('click', '.delete', function() {
@@ -236,7 +238,7 @@ app.init = () => {
     	app.database.ref(`/mediaList`).set(null);
     });
     // Remove list item from the front end append
-    app.mediaList.limitToLast(5).on('child_removed', function (listItems) {
+    app.mediaList.on('child_removed', function (listItems) {
 	// console.log(favouritesList.find(listItems.key));
 	favouritesList.find(`#key-${listItems.key}`).remove();
 	});	
@@ -249,13 +251,13 @@ app.init = () => {
 		$('.favourites-list-window').slideUp(200).addClass('hidden');
 	});
 	
-	$(function(){
-$('#video').css({ width: $(window).innerWidth() + 'px', height: $(window).innerHeight() + 'px' });
+	// $(function(){
+// $('#video').css({ width: $(window).innerWidth() + 'px', height: $(window).innerHeight() + 'px' });
 
-$(window).resize(function(){
-$('#video').css({ width: $(window).innerWidth() + 'px', height: $(window).innerHeight() + 'px' });
-  });
-});
+// $(window).resize(function(){
+// $('#video').css({ width: $(window).innerWidth() + 'px', height: $(window).innerHeight() + 'px' });
+//   });
+// });
 // ================================================
 // Logo Animation
 // ================================================
@@ -421,7 +423,20 @@ $('#video').css({ width: $(window).innerWidth() + 'px', height: $(window).innerH
 		
 		
 	});
+
+// ================================================
+// Responsive Design
+// ================================================
+$('.media__type-label').click(function() {
+	$('.media__form__type').addClass('hide');
+	app.userType = $(this).text();
+});
 	
+$('#all').click(function() {
+	$('.media__form__type').addClass('hide');
+	app.userType = null;
+});
+
 }
 // This runs the app
 $(function() {

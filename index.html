@@ -39,12 +39,12 @@ User Firebase? Add an expandable chat window for "customer service" Add placehol
 Use Canvas? "S" logo that explodes when you click it. If not, just a cool "S" logo
 
 
-Print the area with the close icon removed?
-* Save Button for Favourites
-* Add labels to inputs and position them away to be hidden (accessibility)
-* Responsive Design
+
 
 STRETCH GOALS
+* Add labels to all inputs and make them accessible for those we want to hide.
+* Save Button for Favourites
+* Print the area with the close icon removed
 * Only add items to favourites list since last page load by the current user
 * add pagination to allow for a large number results
 * Give user the option to choose how many results are loaded on the page.
@@ -78,6 +78,7 @@ MVP3 -  -->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 	<link href="https://fonts.googleapis.com/css?family=Limelight" rel="stylesheet">
 	<link rel="stylesheet" href="public/styles/style.css">
+	<link rel="stylesheet" href="public/styles/stylesPrint.css">
 </head>
 <body>
 <!-- HEADER -->
@@ -104,28 +105,33 @@ MVP3 -  -->
 				<div class="media__form__type">
 					<div class="media__form__button">
 						<input type="radio" id="movies" name="type" value="movies">
-						<label for="movies">Movies</label>
+						<label class="media__type-label" for="movies">Movies</label>
 					</div>
 					<div class="media__form__button">
 						<input type="radio" id="music" name="type" value="music">
-						<label for="music">Music</label>
+						<label class="media__type-label" for="music">Music</label>
 					</div>
 					<div class="media__form__button">
 						<input type="radio" id="shows" name="type" value="shows">
-						<label for="shows">Television</label>
+						<label class="media__type-label" for="shows">Television</label>
 					</div>
 					<div class="media__form__button">
 						<input type="radio" id="books" name="type" value="books">
-						<label for="books">Books</label>
+						<label class="media__type-label" for="books">Books</label>
 					</div>
 					<div class="media__form__button">
 						<input type="radio" id="authors" name="type" value="authors">
-						<label for="authors">Authors</label>
+						<label class="media__type-label" for="authors">Authors</label>
 					</div>
 					<div class="media__form__button">
 						<input type="radio" id="games" name="type" value="games">
-						<label for="games">Games</label>
+						<label class="media__type-label" for="games">Games</label>
 					</div>
+
+					<div class="media__form__button">
+						<input type="radio" id="all" name="type" value="All">
+						<label class="media__type-label" id="all" for="all">All</label>
+					</div>					
 				</div>
 
 				<div id="error"></div>
