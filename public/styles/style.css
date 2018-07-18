@@ -284,6 +284,9 @@ input[id=all],
 label[id=all] {
   display: none; }
 
+.hamburger-container {
+  display: none; }
+
 .inline-error {
   color: red;
   font-size: 1.5rem;
@@ -429,6 +432,10 @@ footer {
     display: none; }
   .header__prim {
     margin-top: 94px; }
+  #media__search {
+    width: 210px; }
+  #media__submit {
+    width: 70px; }
   input[name=type] {
     display: none; }
   .media__form__type {
@@ -449,7 +456,14 @@ footer {
   label[id=all] {
     color: red; }
   .hide {
-    display: none; } }
+    display: none; }
+  .hamburger-container {
+    display: flex;
+    margin-bottom: 10px; }
+  .hamburger-container p {
+    margin: 5px 0;
+    margin-right: 10px;
+    font-size: 1.5rem; } }
 
 @media (max-width: 480px) {
   .media__youtube {

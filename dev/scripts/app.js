@@ -427,15 +427,19 @@ app.init = () => {
 // ================================================
 // Responsive Design
 // ================================================
-$('.media__type-label').click(function() {
-	$('.media__form__type').addClass('hide');
-	app.userType = $(this).text();
-});
-	
-$('#all').click(function() {
-	$('.media__form__type').addClass('hide');
-	app.userType = null;
-});
+	$('.media__type-label').click(function() {
+		$('.media__form__type').addClass('hide');
+		app.userType = $(this).text();
+	});
+		
+	$('#all').click(function() {
+		$('.media__form__type').addClass('hide');
+		app.userType = null;
+	});
+
+	$('.burger-button').click(function() {
+		$('.media__form__type').removeClass('hide');
+	});
 
 }
 // This runs the app
