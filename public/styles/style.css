@@ -444,7 +444,8 @@ footer {
     flex-direction: column; }
   .media__form__type label {
     font-size: 4rem;
-    display: block; }
+    display: block;
+    cursor: pointer; }
   label[id=all] {
     color: red; }
   .hide {
