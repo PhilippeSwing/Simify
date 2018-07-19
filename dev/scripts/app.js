@@ -35,14 +35,12 @@ app.init = () => {
 	const favouritesList = $('.favourites-list__list');
 	// This is a function that displays an inline error under the search field when no results are returned from API#1 (empty array)
 	app.displayNoResultsError = () => {
-		// console.log('error function works')
 		const $noResultsError = $('<p>').addClass('inline-error').text('Sorry, we are unable to find your results. They might not be available or your spelling is incorrect. Please try again.');
 		console.log($noResultsError);
 		$('#error').append($noResultsError);
 	};
-	// console.log(app.displayNoResultsError);
 
-	// Event Listener to cinlude everything that happens on form submission
+	// Event Listener to inlude everything that happens on form submission
 	$('.media__form').on('submit', function(event) {
 		// Prevent default for submit inputs
 		event.preventDefault();
@@ -59,7 +57,6 @@ app.init = () => {
 		    data: {
 		      k: '311267-HackerYo-HR2IP9BD',
 		      q: `${userInput}`,
-		      // q: 'superman',
 		      type: `${app.userType}`,
 		      info: 1,
 		      limit: 10
@@ -102,17 +99,14 @@ app.init = () => {
 		      Promise.all(imdbPromiseArray).then((imdbResults) => {
 		        console.log(imdbResults);
 		        app.imdbResultsArray = imdbResults;
-		        // console.log(app.imdbResultsArray);
 		        app.displayMedia(mediaInfoArray);
 		      });
 		    // For media types that are not movies or shows, display the results on the page
 		    } else {
 		  		app.displayMedia(mediaInfoArray);
 		    };
-		  // } else if (app.userType === 'music' || app.userType === 'books' || app.userType === 'authors' || app.userType === 'games'){
-		  // 	app.displayMedia(mediaInfoArray);
-		  // };
 		}).fail(function(err) {
+			// Stretch Goal: Put something here
 		  console.log(err);
 		});
 		// This is a function to display the API promise results onto the page
@@ -124,15 +118,6 @@ app.init = () => {
 	    	};
 
 	    	allMediaArray.forEach((singleMedia) => {
-	    		// For each result in the array returned from API#1, create variables for all html elements I'll be appending.
-	    		// KEEPING TYPE AND TITLE SEPARATE
-	    		// const $mediaType = $('<h2>').addClass('media__type').text(singleMedia.Type);
-	    		// const $mediaTitle = $('<h2>').addClass('media__title').text(singleMedia.Name);
-	    		// COMBINING TYPE AND TITLE
-	    		// const $mediaTypeTitle = $(`<div class="media__type__title-container"><h2 class="media__type">${singleMedia.Type}:</h2><h2 class="media__title">${singleMedia.Name}</h2></div>`);
-	    		// COMBINING TYPE AND TITLE IN ONE H2
-	    		// app.mediaType = singleMedia.Type;
-	    		// app.mediaTitle = singleMedia.Name;
 	    		const $mediaTypeTitle = $(`<h2 class="media__type__title">${singleMedia.Type}: ${singleMedia.Name}</h2>`);
 	    		const $mediaDescriptionHeader = $('<h3>').addClass('media__description-header').text('Description');
 	    		const $mediaDescription = $('<p>').addClass('media__description').text(singleMedia.wTeaser);
@@ -143,10 +128,7 @@ app.init = () => {
 	    			id: singleMedia.yID,
 	    			frameborder: 0,
 	    			allowfullscreen: true
-	    			// height: 315
-	    			// max-width: 560
 	    		});	
-
 	    		const $addButton = $('<input>').attr({
 	    			type: 'button',
 	    			value: 'Add to Favourites',
@@ -154,25 +136,18 @@ app.init = () => {
 	    			class: 'add-button'
 	    		});
 
-	    		// const $addButton = $(`<form><input type="button" value="Add to Favourites" form="add-button-form" class="add-button"></input></form>`);
-	    		// ???IS THERE A WAY TO APPEND AN INPUT INSIDE OF A FORM??? IF NOT< JUST DO INPUT AND USE 'onCLick' event listener to submit the media typeand title to Firebase.
-
-	    		// const $addForm = `<form id="add-button-form">${$addButton}</form>`;
-	    		
-	    		// console.log(app.imdbResultsArray);
-
-	    		// This matches the movie or show title from API#1 with API#2. It then creates a variable for the IMDB Rating returned from API#2 and appends it to the page.
 	    		if (app.imdbResultsArray !== undefined) {
 		    		app.imdbResultsArray.find((element) => {
 		    			if (singleMedia.Name === element.Title) {
 		    				const $mediaImdb = $('<p>').addClass('imdb-rating').text(`${element.imdbRating}/10`);
-		    				// const $imdbLogo = $('<img>').addClass('imdb-logo').attr('src', 'https://upload.wikimedia.org/wikipedia/commons/6/69/IMDB_Logo_2016.svg');
 		    				const $imdbLogoRating = $(`<div class="imdb-container"><div class="imdb-image-container"><img src="https://upload.wikimedia.org/wikipedia/commons/6/69/IMDB_Logo_2016.svg" alt="IMDB Logo"></div><p class="imdb-rating">${element.imdbRating}/10</p></div>`);
 		    				// This accounts for results that do not have YouTube URLs
 		    				if (singleMedia.yUrl === null) {
-		    					mediaContainer.append($mediaTypeTitle, $mediaDescriptionHeader, $mediaDescription, $mediaWiki, $imdbLogoRating, $addButton);
+		    					const oneResultContainer = $('<div>').append($mediaTypeTitle, $mediaDescriptionHeader, $mediaDescription, $mediaWiki, $imdbLogoRating, $addButton).addClass('result-container');
+		    					mediaContainer.append(oneResultContainer);
 		    				} else {
-		    				mediaContainer.append($mediaTypeTitle, $mediaDescriptionHeader, $mediaDescription, $mediaWiki, $imdbLogoRating, $mediaYouTube, $addButton);
+		    					const oneResultContainer = $('<div>').append($mediaTypeTitle, $mediaDescriptionHeader, $mediaDescription, $mediaWiki, $imdbLogoRating, $mediaYouTube, $addButton).addClass('result-container');
+		    					mediaContainer.append(oneResultContainer);
 		    				};
 		    			};
 		    		});
@@ -180,51 +155,44 @@ app.init = () => {
 		    	} else {
 		    		// This accounts for results that do not have YouTube URLs
 		    		if (singleMedia.yUrl === null) {
-		    			mediaContainer.append($mediaTypeTitle, $mediaDescriptionHeader, $mediaDescription, $mediaWiki, $addButton);
+		    			const oneResultContainer = $('<div>').append($mediaTypeTitle, $mediaDescriptionHeader, $mediaDescription, $mediaWiki, $addButton).addClass('result-container');
+		    			mediaContainer.append(oneResultContainer);
 		    		} else {
-		    		mediaContainer.append($mediaTypeTitle, $mediaDescriptionHeader, $mediaDescription, $mediaWiki, $mediaYouTube, $addButton);
+		    		const oneResultContainer = $('<div>').append($mediaTypeTitle, $mediaDescriptionHeader, $mediaDescription, $mediaWiki, $mediaYouTube, $addButton).addClass('result-container');
+		    		mediaContainer.append(oneResultContainer);
 		    		};
 		    	};
 	    	});
 	    };
-	    
 	});
 // ================================================
 // Firebase: Media Favourites List
 // ================================================
-	// Event listener for adding media type and title to the list submitting the form/printing the list
+	// Event listener for adding media type and title to the favourites list
     mediaContainer.on('click', '.add-button', function(e) {
-       // This variable stores the element(s) in the form I want to get value(s) from. In this case it the p representing the media title and the p representing the media type.
-        // const type = $(this).prevAll('.media__type')[0].innerText;
-        // const title = $(this).prevAll('.media__title')[0].innerText;
+       // This variable stores the element(s) in the form I want to get value(s) from. In this case it's the <p> representing the media type and media title.
         const typeAndTitle = $(this).prevAll('.media__type__title')[0].innerText
       
         const mediaObject = {
-        	// type,
-        	// title
+        // Remember: This is the same as typeAndTitle: typeAndTitle
         	typeAndTitle
         }
-        console.log(mediaObject);
         // Add the information to Firebase
         app.mediaList.push(mediaObject);
     });
-    // console.log(app.mediaList);
     // Get the type and title information from Firebase
     app.mediaList.on('child_added',function(mediaInfo) {
-    	// console.log(mediaInfo);
     	const data = mediaInfo.val();
-    	// const mediaTypeFB = data.type;
-    	// const mediaTitleFB = data.title;
+    	
     	const mediaFB = data.typeAndTitle;
     	const key = mediaInfo.key;
-    	// Create List Item taht includes the type and title
+    	// Create List Item that includes the type and title
     	const li = `<li id="key-${key}" class="favourites-list__list-item">
     					<p>${mediaFB}</p>
     					<button id="${key}" class="delete no-print"><i class="fas fa-times-circle"></i></button>
     				</li>`
     	favouritesList.append(li);
     	favouritesList[0].scrollTop = favouritesList[0].scrollHeight;
-    	console.log(favouritesList[0]);
     });
     // Remove list item from Firebase when the delete icon is clicked
     favouritesList.on('click', '.delete', function() {
@@ -239,7 +207,7 @@ app.init = () => {
     });
     // Remove list item from the front end append
     app.mediaList.on('child_removed', function (listItems) {
-	// console.log(favouritesList.find(listItems.key));
+	
 	favouritesList.find(`#key-${listItems.key}`).remove();
 	});	
 	// Maximize and Minimize buttons for the Favourites List
@@ -250,14 +218,6 @@ app.init = () => {
 	$('.favourites-minimize').click(function () {
 		$('.favourites-list-window').slideUp(200).addClass('hidden');
 	});
-	
-	// $(function(){
-// $('#video').css({ width: $(window).innerWidth() + 'px', height: $(window).innerHeight() + 'px' });
-
-// $(window).resize(function(){
-// $('#video').css({ width: $(window).innerWidth() + 'px', height: $(window).innerHeight() + 'px' });
-//   });
-// });
 // ================================================
 // Logo Animation
 // ================================================
@@ -292,7 +252,7 @@ app.init = () => {
 		ctx.arc(125, 117, 50, 0, 2 * Math.PI);
 		ctx.stroke();
 		ctx.closePath();
-		// TOP PIECE
+		// 1ST PIECE
 		ctx.beginPath();
 		ctx.moveTo(100, 100);
 		ctx.lineTo(150, 75);
@@ -323,12 +283,11 @@ app.init = () => {
 					ctx.arc(125, 117, 110, 0, 2 * Math.PI);
 					ctx.stroke();
 					ctx.closePath();
-					// TOP PIECE
+					// 1ST PIECE
 					ctx.beginPath();
 					ctx.moveTo((100 + i), (100 - i));
 					ctx.lineTo((150 + i), (75 - i));
 					ctx.lineTo((110 + i), (110 - i));
-					// ctx.arc((200 + i), (200 + i), 100, 1 * Math.PI, 1.7 * Math.PI);
 					// 2ND PIECE
 					ctx.moveTo((110 + i), (110 + i));
 					ctx.lineTo((120 + i), (90 + i));
@@ -353,13 +312,12 @@ app.init = () => {
 					ctx.arc(125, 117, 110, 0, 2 * Math.PI);
 					ctx.stroke();
 					ctx.closePath();
-					// TOP PIECE
+					// 1ST PIECE
 					ctx.beginPath();
 					ctx.moveTo((150 - i), (50 + i));
 					ctx.lineTo((200 - i), (25 + i));
 					ctx.lineTo((160 - i), (60 + i));
-					// ctx.arc((290 - i), (290 - i), 100, 1 * Math.PI, 1.7 * Math.PI);
-					// MIDDLE PIECE
+					// 2ND PIECE
 					ctx.moveTo((160 - i), (160 - i));
 					ctx.lineTo((170 - i), (140 - i));
 					ctx.lineTo((200 - i), (185 - i));
@@ -385,8 +343,6 @@ app.init = () => {
 		ctx.arc(125, 117, 60, 0, 2 * Math.PI);
 		clearInterval(logoAnimate);
 		setTimeout(function() {
-			// ctx.clearRect(0, 0,  canvas.width, canvas.height);
-			// ctx.arc(125, 117, 60, 0, 2 * Math.PI);
 			topS = () => {
 			ctx.clearRect(0, 0,  canvas.width, canvas.height);
 			// OUTER CIRCLE
@@ -402,7 +358,7 @@ app.init = () => {
 			ctx.arc(125, 117, 50, 0, 2 * Math.PI);
 			ctx.stroke();
 			ctx.closePath();
-			// TOP PIECE
+			// 1ST PIECE
 			ctx.beginPath();
 			ctx.moveTo(100, 100);
 			ctx.lineTo(150, 75);

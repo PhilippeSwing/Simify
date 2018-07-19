@@ -1,47 +1,4 @@
-<!-- Available Values:
-1. Title
-2. Type: movies
-3. Teaser Description
-4. Wiki URL
-5. YouTube URL
-
-MVP1 - Movies
-- Layout
-Page headings
-Search field with placeholder content - Decided not to do this
-
-- User input: 
-text input form
-search options for music, shows and books
-
-- Output:
-Title, Teaser Description, Wiki link, embedded YouTube clip
-Multiple results on one page
-IMDB rating for movies
-
-- Functional Features:
-Results are replace with every new search
-
-Pseudo Code
-- write code to get media results for one media type
-- write code to display those results
-- Everything goes in an initi function and is called in the document ready
-- insert parameter in the Ajax function to represent the search query property and link it to the text input
-- insert a second parameter in the Ajax function to represent the media type property. Link it to the user input for the type of media they want.
-- Setup IMDB API Promise, etc. using material from Promises class.
-- Write HTML to display IMDB info 
-- Use either Fetch (results dependent API) or Multiple Promises coding (results independent API) to change my Ajax function.
-- Edit the display function to include the results from the 2nd API
-*Add if/else statement for my app.display function to account for whether there is an IMDB rating. I should then be able to delete "if (userType === 'movies')" because IMDB will only display if it exists n the results
-include the error method in my promises just in case there are failures in calling the API. Field level error instead of alert?
-Field level error instead of alert if I get nothing back, i.e. incorrect spelling of media or media is not available (say sorry)
-User Firebase? Add an expandable chat window for "customer service" Add placeholder text or chat box header that says "How can I help you?"
-Use Canvas? "S" logo that explodes when you click it. If not, just a cool "S" logo
-
-
-
-
-STRETCH GOALS
+<!-- STRETCH GOALS
 * Add labels to all inputs and make them accessible for those we want to hide.
 * Save Button for Favourites
 * Print the area with the close icon removed
@@ -54,8 +11,8 @@ MVP2 - Scroll
 If the API returns an empty array, display or alert an error message that tells them to check their spelling or enter a valid movie title.
 Arrow at bottom of page to reveal more results
 
-MVP3 -  -->
-<!-- * Make the app responsive -->
+MVP3 -  --> -->
+<!-- Make the app responsive -->
 <!-- PSEUDO CODE -->
 <!-- ======================== -->
 
@@ -68,7 +25,6 @@ MVP3 -  -->
 - Create a method property to display the results on the page
 - Make it so that old results are replaced with the results of a new search
  -->
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -95,21 +51,14 @@ MVP3 -  -->
 			<p class="hamburger-label">Media Type</p>
 			<button class="burger-button"><i class="fas fa-bars"></i></button>
 		</div>
-		
+
 		<section class="search__form-section wrapper__prim">
 			<form action="" class="media__form">
 				<div class="media__form__search">
 					<div class="media__form__search-field">
-						<!-- <label for="media__search">Enter your movie title</label> -->
-						<!-- <div class="hamburger-container">
-							<p class="hamburger-label">Media Type</p>
-							<button class="burger-button"><i class="fas fa-bars"></i></button>
-						</div> -->
-
 						<input type="text" id="media__search">
 						<input type="submit" value="search" id="media__submit">
 					</div>
-
 				</div>
 
 				<div class="media__form__type">
@@ -155,22 +104,11 @@ MVP3 -  -->
 <!-- ======================== -->
 <!-- MAIN -->
 	<main>
-
 <!-- ==Media Search Results== -->
 		<section class="media__results-container hidden wrapper__sec">
 			<div class="TasteDive__API-container">
-			<!-- <a href=""></a> -->
-
-			<!-- <ul class="similar-list">
-				
-			</ul> -->
-
-			<!-- <iframe class="youtube-clip" width="" height="" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> -->
-			<!-- <form action="" id="add-button-form"></form> -->
+			<!-- ==This Div will hold the div that contains media results== -->
 			</div>
-
-			<!-- <div class="omdb__API-container"></div> -->
-
 		</section>
 <!-- ==Media Search Results Ends== -->
 <!-- ======================== -->
@@ -212,25 +150,22 @@ MVP3 -  -->
 
 <!-- ======================== -->
 <!-- SCRIPT TAGS -->
-<!-- ==Load in Font Awesome== -->
-	<!-- <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
-	<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script> -->
 <!-- ==Load in Firebase== -->
 	<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
 <!-- ==Load in JQuery== -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <!-- ==Load in Print Functionality== -->
-<script type="text/javascript">
+	<script type="text/javascript">
 
-function printDiv(divName) {
+	function printDiv(divName) {
 
- let printContents = document.getElementById(divName).innerHTML;
- w=window.open();
- w.document.write(printContents);
- w.print();
- w.close();
-}
-</script>
+	 let printContents = document.getElementById(divName).innerHTML;
+	 w=window.open();
+	 w.document.write(printContents);
+	 w.print();
+	 w.close();
+	}
+	</script>
 <!-- ==Load in app.js== -->
 	<script src="public/scripts/app.js"></script>
 </body>

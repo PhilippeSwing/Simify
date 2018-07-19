@@ -23,7 +23,7 @@ h1 {
 h2 {
 	font-size: 3rem;
 	font-family: 'Limelight', cursive;
-	border-top: 5px double black;
+	border-bottom: 5px double black;
 	padding-top: 10px;
 	margin: 0 0 20px 0;
 	text-transform: capitalize;
@@ -60,7 +60,6 @@ body {
 	background: linear-gradient(to bottom left, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url("../../images/project3BodyBackgroundImage.jpg");
 	background-size: static;
 	background-position: top;
-	// background-repeat: repeat;
 }
 // ========================
 // BODY ENDS
@@ -70,7 +69,6 @@ body {
 // HEADER
 // ========================
 .header {
-	// border: 2px solid red;
 	box-shadow: 0 0 10px rgba(0,0,0,0.7); 
 	display: flex;
 	flex-direction: column;
@@ -79,7 +77,6 @@ body {
 	margin-top: 150px;
 	margin-bottom: 50px;
 	border: outset;
-	// padding-bottom: 25px;
 	background: linear-gradient(to bottom, rgb(92, 92, 92), rgb(180, 180, 180));
 }
 // ==Canvas==
@@ -131,7 +128,7 @@ body {
 
 #media__search {
 	height: 35px;
-	width: 390px;
+	width: 400px;
 	padding-left: 5px;
 	font-size: 1.8rem;
 	border: 1px solid rgb(92, 92, 92);
@@ -153,8 +150,6 @@ body {
 }
 
 input[name=type] {
-	// margin-right: 7px;
-	// padding-top: 5px;
 	width: 2rem;
 	height: 2rem;
 }
@@ -176,11 +171,6 @@ label[id=all]
 .hamburger-container {
 	display: none;
 }
-
-// .label-close {
-// 	display: none;
-// 	background-color: transparent;
-// }
 // ====Media Form Type Ends====
 
 // ====Search Field Error====
@@ -210,22 +200,28 @@ label[id=all]
 // ==Media Search Results==
 .media__results-container {
 	margin: 0 auto;
-	// margin-bottom: 50px;
+	box-shadow: 0 0 15px rgba(0,0,0,0.7); 
 	background-color: white;
-	box-shadow: 0 0 10px rgba(0,0,0,0.7); 
-	background-color: white;
-	padding: 25px;
-	border-style: outset;
 }
 
-.TasteDive__API-container {
+.result-container {
 	display: flex;
 	flex-direction: column;
+	padding: 0 25px;
+	border-bottom: 1px solid rgb(92, 92, 92);
 }
 
-.media__type__title {
-	// margin: 25px 25px 0 25px;
+.result-container:nth-child(even) {
+	background-color: rgb(180, 180, 180);
 }
+
+// .media__description {
+// 	height: 80px;
+// 	overflow: scroll;
+// 	border-top: 4px dotted black;
+// 	border-left: 4px dotted black;
+// 	border-right: 4px dotted black;
+// }
 
 .media__wiki {
 	font-size: 2rem;
@@ -237,10 +233,6 @@ label[id=all]
 	max-width: 560px;
 	height: 315px;
 }
-
-// iframe {
-// 	max-width: 560px;
-// }
 
 .add-button {
 	width: 150px;
@@ -279,6 +271,7 @@ label[id=all]
 }
 
 // ====IMDB Rating Ends====
+
 // ==Media Search Results Ends==
 // ========================
 // ==Favourites List==
@@ -286,47 +279,30 @@ label[id=all]
 	position: fixed;
 	right: 0;
 	bottom: 0;
-	// z-index: 5;
 	border-radius: 10px 10px 0 0;
 	border: 2px solid rgb(255, 160 ,0);
-	// border-style: inset;
 	width: 388px;
-	// background-color: lightgrey;
 	background-color: rgb(255, 201, 0);
 }
 
 .favourites-list__title {
-	// background-color: rgb(255, 201, 0);
 	display: flex;
 	padding: 5px 0 5px 10px;
 	border-radius: 10px 10px 0 0;
-	// border-bottom: 2px double black;
-	// border-bottom-style: double;
 	width: 100%;
 	justify-content: space-between;
 }
 
 .favourites-list__title__buttons {
-	// display: flex;
-	// width: auto;
-	// justify-content: space-around;
 	margin-right: 15px;
 }
 
-.favourites-list__description {
-	// padding-right: 170px;
-}
-
 .favourites-list-window {
-	// background-color: lightgrey;
-	// background-color: rgb(255, 201, 0);
 	border-top-style: double;
 }
 
 .delete {
 	background-color: transparent;
-	// border: 5px solid red;
-	// border-radius: 50%;
 	border: none;
 }
 
@@ -357,19 +333,13 @@ label[id=all]
 }
 
 .favourites-minimize {
-	// align-self: flex-end;
 	padding: 6px 8px;
-	// background-color: #FFAA00;
-	// background-color: rgb(255,135 ,0);
 	background: linear-gradient(to bottom right, rgb(255, 160 ,0), rgb(255, 190, 75));
 	border: 1px solid rgb(255,160 ,0);
 }
 
 .favourites-maximize {
-	// align-self: flex-end;
 	padding: 6px 8px;
-	// background-color: #FFAA00;
-	// background-color: rgb(225, 177, 0);
 	background: linear-gradient(to bottom right, rgb(255, 160 ,0), rgb(255, 190, 75));
 	border: 1px solid rgb(255,160 ,0);
 }
@@ -406,7 +376,7 @@ footer {
 
 .footer_text {
 	text-align: center;
-
+	font-weight: bold;
 }
 // ========================
 // FOOTER ENDS
@@ -419,7 +389,9 @@ footer {
 // ==Responsive==
 // **Portrait tablet and small desktops**
 @media (max-width: 940px) {
-
+	.footer_text {
+		text-align: left;
+	}
 }
 // **Landscape phone to portrait tablet**
 @media (max-width: 767px) {
@@ -431,10 +403,6 @@ footer {
 	.header__prim {
 		margin-top: 94px;
 	}
-	// ==Type selection Hamburger Menu==
-	// .media__form__search-field {
-	// 	width: 505px;
-	// }
 
 	#media__search {
 		width: 210px;
@@ -478,7 +446,6 @@ footer {
 	.hamburger-container {
 		display: flex;
 		margin-bottom: 10px;
-		// flex-direction: column;
 	}
 
 	.hamburger-container p {
@@ -486,20 +453,6 @@ footer {
 		margin-right: 10px;
 		font-size: 1.5rem;
 	}
-	
-
-	// .label-close {
-	// 	// display: absolute;
-	// 	// top: 10px;
-	// 	// left: 10px;
-	// 	// z-index: 200;
-	// 	display: block;
-	// 	align-self: flex-start;
-	// 	margin-left: 30px;
-	// 	font-size: 4rem;
-	// 	border: none;
-	// }
-
 }
 // **Landscape phones and down**
 @media (max-width: 480px) {

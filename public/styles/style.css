@@ -181,7 +181,7 @@ h1 {
 h2 {
   font-size: 3rem;
   font-family: 'Limelight', cursive;
-  border-top: 5px double black;
+  border-bottom: 5px double black;
   padding-top: 10px;
   margin: 0 0 20px 0;
   text-transform: capitalize; }
@@ -254,7 +254,7 @@ body {
 
 #media__search {
   height: 35px;
-  width: 390px;
+  width: 400px;
   padding-left: 5px;
   font-size: 1.8rem;
   border: 1px solid #5c5c5c; }
@@ -301,15 +301,17 @@ label[id=all] {
 
 .media__results-container {
   margin: 0 auto;
-  background-color: white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
-  background-color: white;
-  padding: 25px;
-  border-style: outset; }
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+  background-color: white; }
 
-.TasteDive__API-container {
+.result-container {
   display: flex;
-  flex-direction: column; }
+  flex-direction: column;
+  padding: 0 25px;
+  border-bottom: 1px solid #5c5c5c; }
+
+.result-container:nth-child(even) {
+  background-color: #b4b4b4; }
 
 .media__wiki {
   font-size: 2rem;
@@ -425,7 +427,12 @@ footer {
   margin-top: 250px; }
 
 .footer_text {
-  text-align: center; }
+  text-align: center;
+  font-weight: bold; }
+
+@media (max-width: 940px) {
+  .footer_text {
+    text-align: left; } }
 
 @media (max-width: 767px) {
   canvas {
