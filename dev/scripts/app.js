@@ -100,6 +100,8 @@ app.init = () => {
 		        console.log(imdbResults);
 		        app.imdbResultsArray = imdbResults;
 		        app.displayMedia(mediaInfoArray);
+		      }).catch((error) => {
+		      	return error;
 		      });
 		    // For media types that are not movies or shows, display the results on the page
 		    } else {
