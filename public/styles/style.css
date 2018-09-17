@@ -203,20 +203,24 @@ p {
 .hidden {
   display: none; }
 
-body {
-  background: linear-gradient(to bottom left, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url("../../images/project3BodyBackgroundImage.jpg");
-  background-size: static;
-  background-position: top; }
+header {
+  background: linear-gradient(to bottom left, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url("../../images/hollywood.jpg");
+  background-size: cover;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  position: relative; }
+
+.header-container {
+  height: 100vh;
+  padding-top: 175px; }
 
 .header {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 0 auto;
-  margin-top: 150px;
   margin-bottom: 50px;
-  border: outset;
   background: linear-gradient(to bottom, #5c5c5c, #b4b4b4); }
 
 .canvas-container {
@@ -264,7 +268,8 @@ body {
   font-size: 1.8rem;
   text-transform: capitalize;
   border: 1px solid #5c5c5c;
-  background-color: #FFC900; }
+  background-color: #FFC900;
+  cursor: pointer; }
 
 .media__form__type {
   display: flex;
@@ -299,15 +304,24 @@ label[id=all] {
 #error {
   height: 45px; }
 
+.loader {
+  position: absolute;
+  left: 50%; }
+
+main {
+  background: linear-gradient(to bottom left, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url("../../images/simifyMainBackground.jpg");
+  background-size: static;
+  background-position: top; }
+
 .media__results-container {
   margin: 0 auto;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
   background-color: white; }
 
 .result-container {
   display: flex;
   flex-direction: column;
-  padding: 0 25px;
+  padding: 0 50px;
   border-bottom: 1px solid #5c5c5c; }
 
 .result-container:nth-child(even) {
@@ -316,6 +330,9 @@ label[id=all] {
 .media__wiki {
   font-size: 2rem;
   margin-bottom: 20px; }
+
+.media__description {
+  line-height: 2.2rem; }
 
 .media__youtube {
   margin-bottom: 20px;
@@ -329,7 +346,11 @@ label[id=all] {
   font-size: 1.7rem;
   border: 1px solid #5c5c5c;
   border-radius: 5px;
-  margin-bottom: 15px; }
+  margin-bottom: 40px;
+  cursor: pointer;
+  transition: all 0.3s; }
+  .add-button:hover {
+    background: linear-gradient(to bottom, gray, #e6e6e6); }
 
 .imdb-container {
   display: flex; }
@@ -399,15 +420,12 @@ label[id=all] {
 .hidden {
   display: none; }
 
-.favourites-minimize {
-  padding: 6px 8px;
-  background: linear-gradient(to bottom right, #ffa000, #ffbe4b);
-  border: 1px solid #ffa000; }
-
+.favourites-minimize,
 .favourites-maximize {
   padding: 6px 8px;
-  background: linear-gradient(to bottom right, #ffa000, #ffbe4b);
-  border: 1px solid #ffa000; }
+  background: white;
+  border: none;
+  cursor: pointer; }
 
 .favourites-list__form {
   display: flex;
@@ -419,8 +437,9 @@ label[id=all] {
   border-radius: 5px;
   font-size: 1.5rem;
   margin: 5px 0 5px 3px;
-  background: linear-gradient(to bottom, #ffa000, #ffbe4b);
-  border: 1px solid #ffa000; }
+  background: white;
+  border: none;
+  cursor: pointer; }
 
 footer {
   margin: 0 auto;

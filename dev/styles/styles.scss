@@ -54,29 +54,28 @@ p {
 // ========================
 
 // ========================
-// BODY
-// ========================
-body {
-	background: linear-gradient(to bottom left, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url("../../images/project3BodyBackgroundImage.jpg");
-	background-size: static;
-	background-position: top;
-}
-// ========================
-// BODY ENDS
-// ========================
-
-// ========================
 // HEADER
 // ========================
+header {
+	background: linear-gradient(to bottom left, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url("../../images/hollywood.jpg");
+	background-size: cover;
+	background-position: bottom;
+	background-repeat: no-repeat;
+	position: relative;
+}
+
+.header-container {
+	height: 100vh;
+	padding-top: 175px;
+}
 .header {
-	box-shadow: 0 0 10px rgba(0,0,0,0.7); 
+	box-shadow: 0 0 2px rgba(0,0,0,0.7); 
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	margin: 0 auto;
-	margin-top: 150px;
+	// margin-top: 150px;
 	margin-bottom: 50px;
-	border: outset;
 	background: linear-gradient(to bottom, rgb(92, 92, 92), rgb(180, 180, 180));
 }
 // ==Canvas==
@@ -140,6 +139,7 @@ body {
 	text-transform: capitalize;
 	border: 1px solid rgb(92, 92, 92);
 	background-color: #FFC900;
+	cursor: pointer;
 }
 // ====Search field and button Ends====
 
@@ -187,6 +187,11 @@ label[id=all]
 #error {
 	height: 45px;
 }
+
+.loader {
+	position: absolute;
+	left: 50%;
+}
 // ====Search Field Error Ends====
 
 // ==Media Search Form Ends==
@@ -198,16 +203,22 @@ label[id=all]
 // MAIN
 // ========================
 // ==Media Search Results==
+main {
+	background: linear-gradient(to bottom left, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url("../../images/simifyMainBackground.jpg");
+	background-size: static;
+	background-position: top;
+}
+
 .media__results-container {
 	margin: 0 auto;
-	box-shadow: 0 0 15px rgba(0,0,0,0.7); 
+	box-shadow: 0 0 2px rgba(0,0,0,0.7); 
 	background-color: white;
 }
 
 .result-container {
 	display: flex;
 	flex-direction: column;
-	padding: 0 25px;
+	padding: 0 50px;
 	border-bottom: 1px solid rgb(92, 92, 92);
 }
 
@@ -218,6 +229,10 @@ label[id=all]
 .media__wiki {
 	font-size: 2rem;
 	margin-bottom: 20px;
+}
+
+.media__description {
+	line-height: 2.2rem;
 }
 
 .media__youtube {
@@ -233,7 +248,12 @@ label[id=all]
 	font-size: 1.7rem;
     border: 1px solid rgb(92, 92, 92);
     border-radius: 5px;
-    margin-bottom: 15px;
+	margin-bottom: 40px;
+	cursor: pointer;
+	transition: all 0.3s;
+	&:hover {
+		background: linear-gradient(to bottom, rgb(128,128 ,128), rgb(230, 230, 230));
+	}
 }
 // ====IMDB Rating====
 .imdb-container {
@@ -324,16 +344,12 @@ label[id=all]
 	display: none;
 }
 
-.favourites-minimize {
-	padding: 6px 8px;
-	background: linear-gradient(to bottom right, rgb(255, 160 ,0), rgb(255, 190, 75));
-	border: 1px solid rgb(255,160 ,0);
-}
-
+.favourites-minimize,
 .favourites-maximize {
 	padding: 6px 8px;
-	background: linear-gradient(to bottom right, rgb(255, 160 ,0), rgb(255, 190, 75));
-	border: 1px solid rgb(255,160 ,0);
+	background: white;
+	border: none;
+	cursor: pointer;
 }
 // ====Favourites Window Buttons Ends====
 
@@ -349,8 +365,9 @@ label[id=all]
 	border-radius: 5px;
 	font-size: 1.5rem;
 	margin: 5px 0 5px 3px;
-	background: linear-gradient(to bottom, rgb(255, 160 ,0), rgb(255, 190, 75));
-	border: 1px solid rgb(255,160 ,0);
+	background: white;
+	border: none;
+	cursor: pointer;
 }
 // ====Favourites Clear and Print Buttons====
 
@@ -459,6 +476,7 @@ footer {
 
 	.media__description {
 		text-align: left;
+		// line-height: 2.2rem;
 	}
 
 	.favourites-container {
